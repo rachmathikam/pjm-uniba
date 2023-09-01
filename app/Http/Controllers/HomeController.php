@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = [
+            'company' => 'PJM - Uniba Madura',
+            'title' => 'Home',
+        ];
+        return view('home',compact('data'));
     }
 }

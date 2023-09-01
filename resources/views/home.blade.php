@@ -25,6 +25,9 @@
                     </li>
                 </ul>
             </div>
+            <div id="notification-container">
+                <!-- Notifications will be displayed here -->
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -114,4 +117,5 @@
             </div>
         </div>
     </div>
+    
 @endsection

@@ -38,26 +38,27 @@
                                 </ul>
                             </div>
                             <div class="col-md-8 mb-3" style="float:right">
-                                <form id="add_form">
+                                <form id="edit_form">
                                         @csrf
                                     <div class="row">
                                         <div class="form-group col-sm-6">
                                             <label for="">NIP</label>
-                                            <input type="text" class="form-control" name="nip" id="nip">
+                                            <input type="text" class="form-control" name="nip" id="nip" value="{{ $petugas->nip }}">
+                                            <input type="hidden" name="old_gambar" id="old_gambar" value="{{ $petugas->foto }}">
                                             <div class="invalid-feedback " id='nip-error'>
 
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-6">
                                             <label for="">Email</label>
-                                            <input type="email" class="form-control" name="email" id="email">
+                                            <input type="email" class="form-control" name="email" id="email" value="{{ $petugas->email }}">
                                             <div class="invalid-feedback " id='email-error'>
 
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-12">
                                             <label for="">Password</label>
-                                            <input type="password" class="form-control" name="password" id="password">
+                                            <input type="password" class="form-control" name="password" id="password" value="{{ $petugas->password }}">
                                             <div class="invalid-feedback " id='password-error'>
 
                                             </div>
@@ -77,14 +78,14 @@
                                 <div class="row">
                                     <div class="form-group col-sm-6">
                                         <label for="">Nama Petugas</label>
-                                        <input type="text" class="form-control " name="name" id="name">
+                                        <input type="text" class="form-control " name="name" id="name" value="{{ $petugas->name }}">
                                         <div class="invalid-feedback " id='name-error'>
 
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="">Tempat Lahir</label>
-                                        <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir">
+                                        <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" value="{{ $petugas->tempat_lahir }}">
                                         <div class="invalid-feedback " id='tempat_lahir-error'>
 
                                         </div>
@@ -96,7 +97,7 @@
                                                 <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                             </div>
                                             <input type="date" class="form-control" name="tanggal_lahir"
-                                                id="tanggal_lahir" id="simpleDataInput">
+                                                id="tanggal_lahir" id="simpleDataInput"  value="{{ $petugas->tanggal_lahir }}">
                                             <div class="invalid-feedback" id='tanggal_lahir-error'>
 
                                             </div>
@@ -104,7 +105,7 @@
                                     </div>
                                     <div class="form-group col-sm-6">
                                         <label for="">Phone</label>
-                                        <input type="text" class="form-control" name="no_telp" id="no_telp">
+                                        <input type="text" class="form-control" name="no_telp" id="no_telp"  value="{{ $petugas->no_telp }}">
                                         <div class="invalid-feedback " id='no_telp-error'>
 
                                         </div>
@@ -119,10 +120,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 mb-2">
-                                        <img src="https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                                        <img src="{{ asset('assets/image/petugas')}}/{{ $petugas->foto }}"
                                             id="ba" alt="your image" width="100" height="100">
-                                        <small id="before_change">Contoh Foto</small>
-                                        <small id="after_change" style="display:none;">Foto saat ini</small>
+                                        <small id="after_change">Foto saat ini</small>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                 <div class="row">
                                     <div class="form-group col-sm-12">
                                         <label for="">Alamat</label>
-                                        <textarea name="alamat" id="alamat" class="form-control" rows="5"></textarea>
+                                        <textarea name="alamat" id="alamat" class="form-control" rows="5">{{ $petugas->alamat }}</textarea>
                                         <div class="invalid-feedback " id='alamat-error'>
                                         </div>
                                         <button type="submit" id="btn_add" class="btn btn-primary mt-5 ml-1"
@@ -163,13 +163,16 @@
 
         <script>
 
-            $("#add_form").on('submit', function(e) {
+            $("#edit_form").on('submit', function(e) {
                 e.preventDefault();
                 var data = new FormData(this);
                 $.ajax({
-                    url : "{{ route('petugas.store') }}",
-                    data: data,
                     type: "POST",
+                    url : "{{ route('petugas.updated',$petugas->id) }}",
+                    data: data,
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
                     contentType: false,
                     cache: false,
                     processData: false,
