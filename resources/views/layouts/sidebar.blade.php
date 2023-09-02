@@ -63,12 +63,24 @@
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
-                    <h4 class="text-section">PUSAT JAMINAN MUTU</h4>
+                    <h4 class="text-section">Petugas PJM</h4>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('petugas.index') }}">
                         <i class="fas fa-user"></i>
                         <p>Petugas PJM</p>
+                    </a>
+                </li>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">PUSAT JAMINAN MUTU</h4>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('visimisi.index') }}">
+                        <i class="fas fa-info"></i>
+                        <p>Visi-Misi & Tujuan</p>
                     </a>
                 </li>
             </ul>

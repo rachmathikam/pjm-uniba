@@ -18,60 +18,50 @@
                     </li>
                 </ul>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <a href="{{ route('petugas.create') }}" class="btn btn-sm btn-primary"><i
-                                    class="fas fa-plus"></i> Tambah Pegawai</a>
+            {{-- button --}}
+            <div class="page-break">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary mt-auto d-flex ">
+                            Tambah Visi-Misi /Tujuan
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="" id="" class="form-control">
+                            <option selected disabled>Filter By:</option>
+                            <option>Visi-Misi</option>
+                            <option>Tujuan</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <section class="card mt-4">
+                <div class="list-group list-group-messages list-group-flush">
+                    <div class="list-group-item read">
+                        <div class="list-group-item-figure">
+                            <span class="rating rating-sm mr-3 mt-3">
+                                <input type="checkbox" id="star10" value="1">
+                            </span>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="multi-filter-select" class="display table  table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Petugas</th>
-                                            <th>NIP</th>
-                                            <th>Alamat</th>
-                                            <th>Foto</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Petugas</th>
-                                            <th>NIP</th>
-                                            <th>Alamat</th>
-                                            <th>Foto</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach ($petugas as $data)
-                                            <tr id="data{{ $data->id }}">
-                                                <td>{{ $no++ }}</td>
-                                                <td>{{ $data->name }}</td>
-                                                <td>{{ $data->nip }}</td>
-                                                <td>{{ $data->alamat }}</td>
-                                                <td><img src="{{ asset('assets/image/petugas') }}/{{ $data->foto }}"
-                                                        width="100"></td>
-                                                <td>
-                                                    <a href="{{ route('petugas.edit', $data->id) }}"
-                                                        class="btn btn-sm btn-warning">Edit</a>
-                                                    <button class="btn btn-sm btn-danger deleteData">Delete</button>
-                                                </td>
-                                            </tr>
-                                    </tbody>
-                                    @endforeach
-                                </table>
+                        <div class="list-group-item-body pl-3 pl-md-4">
+                            <div class="row">
+                                <div class="col-12 col-lg-10">
+                                    <h4 class="list-group-item-title">
+                                        <a href="#">Arash Mil</a>
+                                    </h4>
+                                    <p class="list-group-item-text text-truncate"> Hi Guys, minus, aliquam porro
+                                        repudiandae numquam. Molestias. </p>
+                                </div>
+                                <div class="col-12 col-lg-2 text-lg-right mt-2">
+                                    <button class="list-group-item-text btn btn-danger btn-sm"><i
+                                            class="fas fa-trash text-white"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 
@@ -82,6 +72,11 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles" />
     <script>
         $('#multi-filter-select').DataTable({
+            "pageLength": 5,
+            "ordering": false,
+        });
+
+        $('#multi-filter-select1').DataTable({
             "pageLength": 5,
             "ordering": false,
         });

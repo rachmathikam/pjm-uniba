@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\VisiMisiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// visi misi
 Route::resource('petugas',PetugasController::class);
 Route::post('/petugas-delete', [App\Http\Controllers\PetugasController::class, 'delete'])->name('petugas.delete');
 Route::post('/petugas-updated/{id}', [App\Http\Controllers\PetugasController::class, 'updated'])->name('petugas.updated');
+
+// visi misi
+Route::resource('visimisi',VisiMisiController::class);
 

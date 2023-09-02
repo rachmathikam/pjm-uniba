@@ -280,15 +280,18 @@ class PetugasController extends Controller
                 $data->delete();
             }
 
-            return response()->json([
-              'status' => 200,
-              'message' => 'Data berhasil di hapus',
-            ]);
+
         }else{
             return response()->json([
                 'status' => 400,
                 'message' => 'Data gagal di hapus',
               ]);
         }
+
+        return response()->json([
+            'status' => 200,
+            'data' => $id,
+            'message' => 'Data berhasil di hapus',
+          ]);
     }
 }
