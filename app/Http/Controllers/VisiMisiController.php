@@ -60,7 +60,6 @@ class VisiMisiController extends Controller
 
     public function tambahVisi(Request $request)
     {
-        dd($request->visi);
         $validator = Validator::make($request->all(), [
             'visi' => 'required|array|min:1',
             'visi.*' => 'required|string',
@@ -74,14 +73,13 @@ class VisiMisiController extends Controller
                 ]);
 
             }else{
-                foreach ($request->all() as $key => $i) {
-                    foreach ($i as $a) {
+                foreach ($request->visi as $i) {
                         VisiMisi::create([
-                            'kategori' => $key,
-                            'deskripsi' => $a,
+                            'kategori' => $request->kategori,
+                            'deskripsi' => $i,
+                            'tanggalmasuk' => $request->tanggalawal,
+                            'tanggalkeluar' => $request->tanggalakhir,
                         ]);
-
-                    }
                }
                $data = VisiMisi::all();
                return response()->json([

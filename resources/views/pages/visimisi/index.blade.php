@@ -258,6 +258,7 @@
                                     @endif
                                     <th>Kategori</th>
                                     <th>Deskripsi</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -290,6 +291,9 @@
                                             <span class="editSpan deskripsi"> {{ $data->deskripsi }}</span>
                                             <input type="text" class="editInput deskripsi" name="deskripsi"
                                                 value="{{ $data->deskripsi }}">
+                                        </td>
+                                        <td>
+                                            {{ $data->status }}
                                         </td>
                                         <td>
                                             <button class="btn text-warning btn-sm edit_inline"><i

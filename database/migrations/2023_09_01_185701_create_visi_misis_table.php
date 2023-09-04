@@ -16,7 +16,10 @@ class CreateVisiMisisTable extends Migration
         Schema::create('visi_misis', function (Blueprint $table) {
             $table->id();
             $table->enum('kategori',['visi','misi','tujuan']);
+            $table->enum('status',['publish','non_publish'])->default('non_publish');
             $table->string('deskripsi');
+            $table->date('tanggalmasuk');
+            $table->date('tanggalkeluar');
             $table->timestamps();
         });
     }
