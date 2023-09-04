@@ -29,40 +29,96 @@ class VisiMisiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function editVisiMisi(Request $request)
     {
-        //
+        // dd($request->all());
+        $id = explode("data", $request->id);
+        $data = VisiMisi::findOrfail($id[1]);
+
+        $data->update([
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi
+
+        ]);
+        $datas = [
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi
+        ];
+        // dd($datas);
+        if($data){
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'data berhasil di update',
+                'data' => $datas,
+             ]);
+        }
     }
 
     public function tambahVisi(Request $request)
     {
-        $validate = Validator::make($request->all(),[
-            'visi' => 'required',
-
-        ],[
-            'visi.required' => 'Masukkan visi misi',
+        $validator = Validator::make($request->all(), [
+            'visi' => 'required|array|min:1',
+            'visi.*' => 'required|string',
         ]);
 
-        if($validate->fails()){
-            return response()->json([
-                'status' => 400,
-                'errors' => 'data gagal di tambahkan',
-                'data' =>  $validate->errors(),
-            ]);
-        }else{
-            foreach ($request->all() as $key => $i) {
-                foreach ($i as $a) {
-                    VisiMisi::create([
-                        'kategori' => $key,
-                        'deskripsi' => $a,
-                    ]);
-                }
-           }
-           return response()->json([
-              'status' => 200,
-              'message' => 'data berhasil di tambahkan',
-           ]);
-        }
+
+            if($validator->fails()){
+                return response()->json([
+                    'status' => 400,
+                    'errors' => 'silahkan input semua visi yang anda tambahkan  ',
+                ]);
+
+            }else{
+                foreach ($request->all() as $key => $i) {
+                    foreach ($i as $a) {
+                        VisiMisi::create([
+                            'kategori' => $key,
+                            'deskripsi' => $a,
+                        ]);
+
+                    }
+               }
+               $data = VisiMisi::all();
+               return response()->json([
+                  'status' => 200,
+                  'message' => 'data berhasil di tambahkan',
+                  'data' => $data,
+               ]);
+            }
+    }
+
+    public function tambahMisi(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'misi' => 'required|array|min:1',
+            'misi.*' => 'required|string',
+        ]);
+
+
+            if($validator->fails()){
+                return response()->json([
+                    'status' => 400,
+                    'errors' => 'silahkan input semua misi yang anda tambahkan  ',
+                ]);
+
+            }else{
+                foreach ($request->all() as $key => $i) {
+                    foreach ($i as $a) {
+                        VisiMisi::create([
+                            'kategori' => $key,
+                            'deskripsi' => $a,
+                        ]);
+
+                    }
+               }
+               $data = VisiMisi::all();
+               return response()->json([
+                  'status' => 200,
+                  'message' => 'data berhasil di tambahkan',
+                  'data' => $data,
+               ]);
+            }
     }
 
 

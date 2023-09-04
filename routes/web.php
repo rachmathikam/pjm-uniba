@@ -30,4 +30,7 @@ Route::post('/petugas-updated/{id}', [App\Http\Controllers\PetugasController::cl
 // visi misi
 Route::resource('visimisi',VisiMisiController::class);
 Route::post('/tambah-visi', [App\Http\Controllers\VisiMisiController::class, 'tambahVisi'])->name('tambah.visi');
+Route::post('/tambah-misi', [App\Http\Controllers\VisiMisiController::class, 'tambahMisi'])->name('tambah.misi');
+Route::post('/edit-visimisi', [App\Http\Controllers\VisiMisiController::class, 'editVisiMisi'])->name('edit.visimisi');
+
 
