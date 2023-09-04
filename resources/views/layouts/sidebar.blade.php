@@ -75,6 +75,18 @@
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
+                    <h4 class="text-section">Setting Web Profile</h4>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('visimisi.index') }}">
+                        <i class="fas fa-cog"></i>
+                        <p>Setting</p>
+                    </a>
+                </li>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
                     <h4 class="text-section">PUSAT JAMINAN MUTU</h4>
                 </li>
                 <li class="nav-item">

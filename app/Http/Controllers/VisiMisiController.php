@@ -19,8 +19,11 @@ class VisiMisiController extends Controller
             'company' => 'PJM - Uniba Madura',
             'title' => 'Visi-Misi & Tujuan'
         ];
+        // dd($data);
 
         $visiMisi = VisiMisi::all();
+
+
         return view('pages.visimisi.index',compact('data','visiMisi'));
     }
 
@@ -57,6 +60,7 @@ class VisiMisiController extends Controller
 
     public function tambahVisi(Request $request)
     {
+        dd($request->visi);
         $validator = Validator::make($request->all(), [
             'visi' => 'required|array|min:1',
             'visi.*' => 'required|string',
@@ -100,6 +104,39 @@ class VisiMisiController extends Controller
                 return response()->json([
                     'status' => 400,
                     'errors' => 'silahkan input semua misi yang anda tambahkan  ',
+                ]);
+
+            }else{
+                foreach ($request->all() as $key => $i) {
+                    foreach ($i as $a) {
+                        VisiMisi::create([
+                            'kategori' => $key,
+                            'deskripsi' => $a,
+                        ]);
+
+                    }
+               }
+               $data = VisiMisi::all();
+               return response()->json([
+                  'status' => 200,
+                  'message' => 'data berhasil di tambahkan',
+                  'data' => $data,
+               ]);
+            }
+    }
+
+    public function tambahTujuan(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'tujuan' => 'required|array|min:1',
+            'tujuan.*' => 'required|string',
+        ]);
+
+
+            if($validator->fails()){
+                return response()->json([
+                    'status' => 400,
+                    'errors' => 'silahkan input semua Tujuan yang anda tambahkan  ',
                 ]);
 
             }else{
@@ -173,8 +210,28 @@ class VisiMisiController extends Controller
      * @param  \App\Models\VisiMisi  $visiMisi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VisiMisi $visiMisi)
+    public function delete(Request $request)
     {
-        //
+        $ids = $request->ids;
+        foreach ($ids as $x) {
+            $datas = VisiMisi::findOrFail($x);
+               $datas->delete();
+        }
+
+        $visiMisi = VisiMisi::all();
+        $select = '';
+        if($visiMisi->isEmpty()){
+           $select .= 'disabled';
+        }else{
+             $select .= 'ada';
+        }
+        // dd($select);
+
+        return response()->json([
+          'status' => 200,
+          'message' => 'data berhasil di hapus',
+          'data' => $visiMisi,
+          'select' => $select
+         ]);
     }
 }

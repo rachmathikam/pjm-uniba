@@ -15,7 +15,7 @@ class CreateVisiMisisTable extends Migration
     {
         Schema::create('visi_misis', function (Blueprint $table) {
             $table->id();
-            $table->enum('kategori',['visi','misi']);
+            $table->enum('kategori',['visi','misi','tujuan']);
             $table->string('deskripsi');
             $table->timestamps();
         });
