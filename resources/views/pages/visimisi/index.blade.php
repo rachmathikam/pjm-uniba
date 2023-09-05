@@ -12,7 +12,8 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        span.editSpan{
+
+        span.editSpan {
             overflow: hidden;
             word-wrap: break-word;
             text-overflow: ellipsis;
@@ -23,7 +24,6 @@
             opacity: 0.65;
             cursor: not-allowed;
         }
-
     </style>
     <div class="content">
         <div class="page-inner">
@@ -52,9 +52,9 @@
                         </button>
                     </div>
                     <div class="col-md-1 mr-5 ml-4">
-                    <button class="btn btn-danger mt-auto d-flex deleteData" disabled>
-                        Hapus Terpilih
-                     </button>
+                        <button class="btn btn-danger mt-auto d-flex deleteData" disabled>
+                            Hapus Terpilih
+                        </button>
                     </div>
                     <div class="col-md-1">
                         <button class="btn btn-warning d-flex btn-info">
@@ -90,50 +90,53 @@
                                         <label>Input Visi</label>
                                         <form id="form_visi">
                                             <div id="inputContainervisi">
-                                                    <button type="submit" class="btn btn-primary btn-sm ml-2">Simpan</button>
-                                                    <button type="button" class="btn btn-success btn-sm ml-2"
-                                                        onclick="addInputVisi()">+</button>
-                                                        <div class="row">
-                                                            <div class="form-group col-sm-5" id="simple-date1">
-                                                                <label for="">Tahun Periode</label>
-                                                                <div class="input-group date">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                                                    </div>
-                                                                    <input type="date" class="form-control" name="tanggalawal"
-                                                                        id="tanggalawal" id="simpleDataInput">
-                                                                    <div class="invalid-feedback" id='tanggalawal-error'>
+                                                <button type="submit" class="btn btn-primary btn-sm ml-2">Simpan</button>
+                                                <button type="button" class="btn btn-success btn-sm ml-2"
+                                                    onclick="addInputVisi()">+</button>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-5" id="simple-date1">
+                                                        <label for="">Tahun Periode</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-calendar"></i></span>
+                                                            </div>
+                                                            <input type="date" class="form-control" name="tanggalawal"
+                                                                id="tanggalawal" id="simpleDataInput">
+                                                            <div class="invalid-feedback" id='tanggalawal-error'>
 
-                                                                    </div>
-                                                                </div>
                                                             </div>
-                                                            <small class="ml-3"><b>Sampai</b></small>
-                                                            <div class="form-group col-sm-5 ml-3" id="simple-date1">
-                                                                <label for="">Tahun Periode</label>
-                                                                <div class="input-group date">
-                                                                    <div class="input-group-prepend">
-                                                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                                                    </div>
-                                                                    <input type="date" class="form-control" name="tanggalakhir"
-                                                                        id="tanggalakhir" id="simpleDataInput">
-                                                                    <div class="invalid-feedback" id='tanggalakhir-error'>
-                                                                        <input type="hidden" value="visi" name="kategori">
-                                                                    </div>
-                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <small class="ml-3"><b>Sampai</b></small>
+                                                    <div class="form-group col-sm-5 ml-3" id="simple-date1">
+                                                        <label for="">Tahun Periode</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-calendar"></i></span>
                                                             </div>
-                                                        <div class="form-group col-12">
+                                                            <input type="date" class="form-control" name="tanggalakhir"
+                                                                id="tanggalakhir" id="simpleDataInput">
+                                                            <div class="invalid-feedback" id='tanggalakhir-error'>
+                                                                <input type="hidden" value="visi" name="kategori">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-12">
                                                         <div class="dynamic-inputs-container">
                                                             <div class="input-group" id="input-group-visi">
                                                                 <input type="text" class="form-control" name="visi[]"
                                                                     id="visi" placeholder="masukkan visi..">
                                                                 <div class="input-group-append">
-                                                                    <button type="button" class="btn btn-danger remove-input"
-                                                                        disabled><i class="fas fa-times"></i></button>
+                                                                    <button type="button"
+                                                                        class="btn btn-danger remove-input" disabled><i
+                                                                            class="fas fa-times"></i></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                              </div>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -143,48 +146,52 @@
                                             <div id="inputContainermisi">
                                                 <button type="submit" class="btn btn-primary btn-sm ml-2">Simpan</button>
                                                 <button type="button" class="btn btn-success btn-sm ml-2"
-                                                    onclick="addInputVisi()">+</button>
-                                                    <div class="row">
-                                                        <div class="form-group col-sm-5" id="simple-date1">
-                                                            <label for="">Tahun Periode</label>
-                                                            <div class="input-group date">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                                                </div>
-                                                                <input type="date" class="form-control" name="tanggalawal"
-                                                                    id="tanggalawal" id="simpleDataInput">
-                                                                <div class="invalid-feedback" id='tanggalawal-error'>
+                                                    onclick="addInputMisi()">+</button>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-5" id="simple-date1">
+                                                        <label for="">Tahun Periode</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-calendar"></i></span>
+                                                            </div>
+                                                            <input type="date" class="form-control" name="tanggalawal"
+                                                                id="tanggalawal" id="simpleDataInput">
+                                                            <div class="invalid-feedback" id='tanggalawal-error'>
 
-                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <small class="ml-3"><b>Sampai</b></small>
-                                                        <div class="form-group col-sm-5 ml-3" id="simple-date1">
-                                                            <label for="">Tahun Periode</label>
-                                                            <div class="input-group date">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                                                </div>
-                                                                <input type="date" class="form-control" name="tanggalakhir"
-                                                                    id="tanggalakhir" id="simpleDataInput">
-                                                                <div class="invalid-feedback" id='tanggalakhir-error'>
-                                                                    <input type="hidden" value="misi" name="kategori">
-                                                                </div>
+                                                    </div>
+                                                    <small class="ml-3"><b>Sampai</b></small>
+                                                    <div class="form-group col-sm-5 ml-3" id="simple-date1">
+                                                        <label for="">Tahun Periode</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-calendar"></i></span>
+                                                            </div>
+                                                            <input type="date" class="form-control"
+                                                                name="tanggalakhir" id="tanggalakhir"
+                                                                id="simpleDataInput">
+                                                            <div class="invalid-feedback" id='tanggalakhir-error'>
+                                                                <input type="hidden" value="misi" name="kategori">
                                                             </div>
                                                         </div>
+                                                    </div>
                                                     <div class="form-group col-12">
-                                                    <div class="dynamic-inputs-container">
-                                                        <div class="input-group" id="input-group-misi">
-                                                            <input type="text" class="form-control" name="misi[]"
-                                                                id="misi" placeholder="masukkan misi..">
-                                                            <div class="input-group-append">
-                                                                <button type="button" class="btn btn-danger remove-input"
-                                                                    disabled><i class="fas fa-times"></i></button>
+                                                        <div class="dynamic-inputs-container">
+                                                            <div class="input-group" id="input-group-misi">
+                                                                <input type="text" class="form-control" name="misi[]"
+                                                                    id="misi" placeholder="masukkan misi..">
+                                                                <div class="input-group-append">
+                                                                    <button type="button"
+                                                                        class="btn btn-danger remove-input" disabled><i
+                                                                            class="fas fa-times"></i></button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                             </div>
                                             </div>
                                         </form>
                                     </div>
@@ -194,46 +201,51 @@
                                             <div id="inputContainertujuan">
                                                 <button type="submit" class="btn btn-primary btn-sm ml-2">Simpan</button>
                                                 <button type="button" class="btn btn-success btn-sm ml-2"
-                                                    onclick="addInputVisi()">+</button>
-                                                    <div class="row">
-                                                        <div class="form-group col-sm-5" id="simple-date1">
-                                                            <label for="">Tahun Periode</label>
-                                                            <div class="input-group date">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                                                </div>
-                                                                <input type="date" class="form-control" name="tanggalawal"
-                                                                    id="tanggalawal" id="simpleDataInput">
-                                                                <div class="invalid-feedback" id='tanggalawal-error'>
+                                                    onclick="addInputTujuan()">+</button>
+                                                <div class="row">
+                                                    <div class="form-group col-sm-5" id="simple-date1">
+                                                        <label for="">Tahun Periode</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-calendar"></i></span>
+                                                            </div>
+                                                            <input type="date" class="form-control" name="tanggalawal"
+                                                                id="tanggalawal" id="simpleDataInput">
+                                                            <div class="invalid-feedback" id='tanggalawal-error'>
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <small class="ml-3"><b>Sampai</b></small>
-                                                        <div class="form-group col-sm-5 ml-3" id="simple-date1">
-                                                            <label for="">Tahun Periode</label>
-                                                            <div class="input-group date">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                                                </div>
-                                                                <input type="date" class="form-control" name="tanggalakhir"
-                                                                    id="tanggalakhir" id="simpleDataInput">
-                                                                <div class="invalid-feedback" id='tanggalakhir-error'>
-                                                                    <input type="hidden" value="visi" name="kategori">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <div class="form-group col-12">
-                                                    <div class="dynamic-inputs-container">
-                                                        <div class="input-group" id="input-group-visi">
-                                                            <input type="text" class="form-control" name="visi[]"
-                                                                id="visi" placeholder="masukkan visi..">
-                                                            <div class="input-group-append">
-                                                                <button type="button" class="btn btn-danger remove-input"
-                                                                    disabled><i class="fas fa-times"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <small class="ml-3"><b>Sampai</b></small>
+                                                    <div class="form-group col-sm-5 ml-3" id="simple-date1">
+                                                        <label for="">Tahun Periode</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i
+                                                                        class="fas fa-calendar"></i></span>
+                                                            </div>
+                                                            <input type="date" class="form-control"
+                                                                name="tanggalakhir" id="tanggalakhir"
+                                                                id="simpleDataInput">
+                                                            <div class="invalid-feedback" id='tanggalakhir-error'>
+                                                                <input type="hidden" value="tujuan" name="kategori">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-12">
+                                                        <div class="dynamic-inputs-container">
+                                                            <div class="input-group" id="input-group-tujuan">
+                                                                <input type="text" class="form-control"
+                                                                    name="tujuan[]" id="tujuan"
+                                                                    placeholder="masukkan tujuan..">
+                                                                <div class="input-group-append">
+                                                                    <button type="button"
+                                                                        class="btn btn-danger remove-input" disabled><i
+                                                                            class="fas fa-times"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,10 +263,12 @@
                         <table id="multi-filter-select" class="display table">
                             <thead>
                                 <tr>
-                                    @if($visiMisi->isEmpty())
-                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids" class="ml-3 mt-2 checkbox-item" disabled></th>
+                                    @if ($visiMisi->isEmpty())
+                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                                class="ml-3 mt-2 checkbox-item" disabled></th>
                                     @else
-                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids" class="ml-3 mt-2 checkbox-item"></th>
+                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                                class="ml-3 mt-2 checkbox-item"></th>
                                     @endif
                                     <th>Kategori</th>
                                     <th>Deskripsi</th>
@@ -266,8 +280,8 @@
                                 @php $no = 1 @endphp
                                 @foreach ($visiMisi as $data)
                                     <tr id="data{{ $data->id }}">
-                                        <td><input type="checkbox" name="ids"
-                                            class="checkbox_ids ml-3 checkbox-item"  value="{{ $data->id }}">
+                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                                value="{{ $data->id }}">
                                         <td>
                                             <span class="editSpan kategori" id="spanKategori">{{ $data->kategori }}</span>
                                             <select name="kategori" id="InputKategori" class=" editInput kategori"
@@ -319,7 +333,6 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles" />
     <script>
-
         function displayInput() {
             $('#select').toggle();
         }
@@ -347,8 +360,18 @@
             }
         }
 
+        function removeInput(element) {
+            var inputGroup = $(element).closest('.input-group');
+            if (inputGroup.parent().is(':nth-child(1)')) {
+                // Prevent removing the first input
+                alert('Cannot remove the first input!');
+            } else {
+                inputGroup.parent().remove();
+            }
+        }
+
         function addInputTujuan() {
-            var html = '<div class="form-group">' +
+            var html = '<div class="form-group col-12">' +
                 '<div class="input-group">' +
                 '<input type="text" class="form-control" name="tujuan[]" placeholder="masukkan tujuan...">' +
                 '<div class="input-group-append">' +
@@ -361,11 +384,13 @@
         }
 
         function addInputVisi() {
-            var html = '<div class="form-group">' +
+            var html = '<div class="row">' +
+                '<div class="form-group col-12">' +
                 '<div class="input-group">' +
                 '<input type="text" class="form-control" name="visi[]" placeholder="masukkan visi...">' +
                 '<div class="input-group-append">' +
                 '<button type="button" class="btn btn-danger remove-input" onclick="removeInput(this)"><i class="fas fa-times"></i></button>' +
+                '</div>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -374,7 +399,7 @@
         }
 
         function addInputMisi() {
-            var html = '<div class="form-group">' +
+            var html = '<div class="form-group col-12">' +
                 '<div class="input-group">' +
                 '<input type="text" class="form-control" name="misi[]" placeholder="masukkan misi...">' +
                 '<div class="input-group-append">' +
@@ -457,7 +482,7 @@
                                                 <button type="submit" class="btn btn-primary btn-sm ml-2">Simpan</button>
                                                 <button type="button" class="btn btn-success btn-sm ml-2"
                                                     onclick="addInputVisi()">+</button>
-                                                <div class="form-group">
+                                                <div class="form-group col-12">
                                                     <div class="dynamic-inputs-container">
                                                         <div class="input-group" id="input-group-visi">
                                                             <input type="text" class="form-control" name="visi[]"
@@ -685,15 +710,7 @@
             });
         });
 
-        function removeInput(element) {
-            var inputGroup = $(element).closest('.input-group');
-            if (inputGroup.parent().is(':nth-child(1)')) {
-                // Prevent removing the first input
-                alert('Cannot remove the first input!');
-            } else {
-                inputGroup.parent().remove();
-            }
-        }
+
 
 
 
@@ -829,16 +846,16 @@
             });
         });
 
-        $(document).on('change','.checkbox-item', function() {
+        $(document).on('change', '.checkbox-item', function() {
             var anyChecked = $('.checkbox-item:checked').length > 0;
             $('.deleteData').prop('disabled', !anyChecked);
         });
 
-        $(document).on('change','.checkbox_ids', function() {
+        $(document).on('change', '.checkbox_ids', function() {
             var anyChecked = $('.checkbox_ids:checked').length > 0;
             console.log(anyChecked);
             $('.deleteData').prop('disabled', !anyChecked);
-            if(anyChecked == 0){
+            if (anyChecked == 0) {
                 $('#select_all_ids').prop('checked', false);
             }
 
@@ -847,7 +864,7 @@
 
 
         $("#select_all_ids").click(function() {
-                $('.checkbox_ids').prop('checked', $(this).prop('checked'));
+            $('.checkbox_ids').prop('checked', $(this).prop('checked'));
         });
 
 
@@ -900,13 +917,13 @@
                                     time: 1500,
                                     delay: 1000,
                                 });
-                                if(response.select == 'disabled'){
+                                if (response.select == 'disabled') {
                                     $(".checkbox-item").prop("checked", false);
-                                    $('.deleteData').prop('disabled',true);
+                                    $('.deleteData').prop('disabled', true);
                                     $(".checkbox-item").attr('disabled', true);
 
-                                }else if(response.select == 'ada'){
-                                    $('.deleteData').prop('disabled',true);
+                                } else if (response.select == 'ada') {
+                                    $('.deleteData').prop('disabled', true);
                                     $("#select_all_ids").prop("checked", false);
                                 }
                                 $.each(all_ids, function(key, val) {

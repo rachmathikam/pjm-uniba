@@ -13,8 +13,11 @@ use App\Http\Controllers\VisiMisiController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
+    return view('frontend.layouts.app');
+});
+
+Route::get('/auth/login', function () {
     return view('auth.login');
 });
 
