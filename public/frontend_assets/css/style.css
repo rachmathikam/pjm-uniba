@@ -1,9 +1,9 @@
 /********** Template CSS **********/
 :root {
     --primary: #5B8C51;
-    --secondary: #EDDD5E;
+    --secondary: #996533;
     --light: #F7F7F7;
-    --dark: #404A3D;
+    --dark: #036536;
 }
 
 .back-to-top {
@@ -89,11 +89,17 @@
     top: -100px;
     transition: .5s;
 }
+.bg-dark{
+    background-color: var(--dark)  !important;
+}
 
+.bg-secondary {
+    background-color: var(--secondary)  !important;
+}
 .navbar .navbar-nav .nav-link {
     margin-right: 35px;
     padding: 25px 0;
-    color: var(--dark);
+    color: var(--primary);
     font-size: 18px;
     font-weight: 500;
     outline: none;
@@ -175,7 +181,7 @@
         position: relative;
         min-height: 450px;
     }
-    
+
     #header-carousel .carousel-item img {
         position: absolute;
         width: 100%;

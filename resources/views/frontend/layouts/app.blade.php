@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Milky - Dairy Website Template</title>
+    <title>Pusat Jaminan Mutu - UNIBA MADURA</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{{ asset('frontend_assets/image/logo_.png') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +34,52 @@
     <link href="{{ asset('frontend_assets/css/style.css') }}" rel="stylesheet">
 </head>
 
+<style>
+    .bg-secondary-1{
+        background-color: #EDDD5E!important;
+    }
+    .sape:hover{
+        transition: 0.70s;
+  -webkit-transition: 0.70s;
+  -moz-transition: 0.70s;
+  -ms-transition: 0.70s;
+  -o-transition: 0.70s;
+  -webkit-transform: rotate(20deg);
+  -moz-transform: rotate(20deg);
+  -o-transform: rotate(-30deg);
+  -ms-transform: rotate(-40deg);
+  transform: rotate(-20deg);
+    }
+
+    .box {
+        align-self: flex-end;
+        animation-duration: 3s;
+
+    }
+    @keyframes bounce-6 {
+        0%   { transform: scale(1,1)      translateY(0); }
+        10%  { transform: scale(1.1,.9)   translateY(0); }
+        30%  { transform: scale(.9,1.1)   translateY(-20px); }
+        50%  { transform: scale(1.05,.95) translateY(0); }
+        57%  { transform: scale(1,1)      translateY(-5px); }
+        64%  { transform: scale(1,1)      translateY(0); }
+        100% { transform: scale(1,1)      translateY(0); }
+    }
+
+    .bounce-6:hover {
+        animation-name: bounce-6;
+        animation-timing-function: ease;
+    }
+
+    .zoom {
+    transition: transform .1s; /* Animation */
+    margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+</style>
 <body>
     <!-- Spinner Start -->
     <div id="spinner"
@@ -45,9 +91,9 @@
 
     <!-- Topbar Start -->
     <div class="container-fluid bg-dark px-0">
-        <div class="row g-0 d-none d-lg-flex">
-            <div class="col-lg-6 ps-5 text-start">
-                <div class="h-100 d-inline-flex align-items-center text-light">
+        <div class="row g-0 d-none d-lg-flex" >
+            <div class="col-lg-6 ps-5 text-start" >
+                <div class="h-100 d-inline-flex align-items-center text-light" >
                     <span>Follow Us:</span>
                     <a class="btn btn-link text-light" href=""><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-link text-light" href=""><i class="fab fa-twitter"></i></a>
@@ -56,7 +102,7 @@
                 </div>
             </div>
             <div class="col-lg-6 text-end">
-                <div class="h-100 bg-secondary d-inline-flex align-items-center text-dark py-2 px-4">
+                <div class="h-100 bg-secondary d-inline-flex align-items-center text-white py-2 px-4">
                     <span class="me-2 fw-semi-bold"><i class="fa fa-phone-alt me-2"></i>Call Us:</span>
                     <span>+012 345 6789</span>
                 </div>
@@ -69,19 +115,19 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
-            <h1 class="m-0">Milky</h1>
+            <img src="{{ asset('frontend_assets/image/logo_unibamadura.png') }}" width="500" class="img-fluid">
         </a>
         <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link active">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
-                <a href="product.html" class="nav-item nav-link">Products</a>
+            <div class="navbar-nav ms-5 ms-auto p-4 p-lg-0">
+                <a href="#" class="nav-item nav-link active">Beranda</a>
+                <a href="about.html" class="nav-item nav-link">Profile</a>
+                <a href="service.html" class="nav-item nav-link">SPMI dan AMI</a>
+                <a href="product.html" class="nav-item nav-link">Dokumen</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Media</a>
                     <div class="dropdown-menu bg-light m-0">
                         <a href="gallery.html" class="dropdown-item">Gallery</a>
                         <a href="feature.html" class="dropdown-item">Features</a>
@@ -91,9 +137,6 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-            </div>
-            <div class="border-start ps-4 d-none d-lg-block">
-                <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
             </div>
         </div>
     </nav>
@@ -105,34 +148,26 @@
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="{{ asset('frontend_assets/img/carousel-1.jpg') }}" alt="Image">
+                    <img class="w-100" src="{{ asset('frontend_assets/image/slider-satu.png') }}" alt="Image" height="1150">
                     <div class="carousel-caption">
                         <div class="container">
                             <div class="row justify-content-start">
                                 <div class="col-lg-8 text-start">
-                                    <p class="fs-4 text-white">Welcome to our dairy farm</p>
-                                    <h1 class="display-1 text-white mb-5 animated slideInRight">The Farm of Dairy
-                                        products</h1>
-                                    <a href=""
-                                        class="btn btn-secondary rounded-pill py-3 px-5 animated slideInRight">Explore
-                                        More</a>
+                                    <p class="fs-4 text-white">Welcome to Uniba Madura</p>
+                                    <h1 class="display-1 text-white mb-5 animated slideInRight">Dari Madura Untuk Indonesia</h1>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="w-100" src="{{ asset('frontend_assets/img/carousel-2.jpg') }}" alt="Image">
+                    <img class="w-100" src="{{ asset('frontend_assets/image/slider-dua.png') }}" alt="Image" height="1150">
                     <div class="carousel-caption">
                         <div class="container">
                             <div class="row justify-content-end">
                                 <div class="col-lg-8 text-end">
-                                    <p class="fs-4 text-white">Welcome to our dairy farm</p>
-                                    <h1 class="display-1 text-white mb-5 animated slideInRight">Best Organic Dairy
-                                        Products</h1>
-                                    <a href=""
-                                        class="btn btn-secondary rounded-pill py-3 px-5 animated slideInLeft">Explore
-                                        More</a>
+                                    <span class="display-1 text-white mb-5 animated slideInRight" style="font-size: 60px;">Mencetak Mahasiswa Yang Cendikiawan Berahlakhul Karimah</span>
                                 </div>
                             </div>
                         </div>
@@ -153,6 +188,56 @@
     </div>
     <!-- Carousel End -->
 
+  <!-- Features Start -->
+  <div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <p class="section-title bg-white text-start text-primary pe-3">PJM</p>
+                <h1 class="mb-4">Berikut Bagian Dari PJM</h1>
+                <p><i class="fa fa-check text-primary me-3"></i>SPMI</p>
+                <p><i class="fa fa-check text-primary me-3"></i>Akreditasi</p>
+                <p><i class="fa fa-check text-primary me-3"></i>AMI</p>
+                <a class="btn btn-secondary rounded-pill py-3 px-5 mt-3" href="">Explore More</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="rounded overflow-hidden">
+                    <div class="row g-0">
+                        <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="text-center bg-secondary py-5 px-4">
+                                <img class="img-fluid sape mb-4"
+                                    src="{{ asset('frontend_assets/img/experience.png') }}" style=" transition: 0.70s;
+                                    -webkit-transition: 0.70s;
+                                    -moz-transition: 0.70s;
+                                    -ms-transition: 0.70s;
+                                    -o-transition: 0.70s;">
+                                <h1 class="display-6 text-white"></h1>
+                                <span class="fs-5 fw-semi-bold text-secondary">SPMI</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="text-center bg-secondary-1 py-5 px-4">
+                                <img class="img-fluid bounce-6 box mb-4" src="{{ asset('frontend_assets/img/award.png') }}"
+                                    alt="">
+                                <h1 class="display-6"></h1>
+                                <span class="fs-5 fw-semi-bold text-primary">Akreditasi</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 wow fadeIn" data-wow-delay="0.7s">
+                            <div class="text-center bg-primary py-5 px-4">
+                                <img class="img-fluid zoom mb-4" src="{{ asset('frontend_assets/img/client.png') }}"
+                                    alt="">
+                                <h1 class="display-6 text-white"></h1>
+                                <span class="fs-5 fw-semi-bold text-secondary">AMI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Features End -->
 
     <!-- About Start -->
     <div class="container-xxl py-5">
@@ -161,9 +246,9 @@
                 <div class="col-lg-6">
                     <div class="row g-2">
                         <div class="col-6 position-relative wow fadeIn" data-wow-delay="0.7s">
-                            <div class="about-experience bg-secondary rounded">
-                                <h1 class="display-1 mb-0">25</h1>
-                                <small class="fs-5 fw-bold">Years Experience</small>
+                            <div class="about-experience bg-secondary-1 rounded">
+                                <h1 class="display-1 mb-0">5</h1>
+                                <small class="fs-5 fw-bold">Tahun Experience</small>
                             </div>
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.1s">
@@ -178,11 +263,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <p class="section-title bg-white text-start text-primary pe-3">About Us</p>
-                    <h1 class="mb-4">Know About Our Dairy Farm & Our History</h1>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam
-                        et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat
-                        amet</p>
+                    <p class="section-title bg-white text-start text-primary pe-3">Kabar PJM Uniba Madura</p>
+                    <h1 class="mb-4">Berita dan aktivitas terkini kegiatan aminan mutu universitas</h1>
+                    <p class="mb-4"></p>
                     <div class="row g-5 pt-2 mb-5">
                         <div class="col-sm-6">
                             <img class="img-fluid mb-4" src="img/service.png" alt="">
@@ -202,64 +285,6 @@
     </div>
     <!-- About End -->
 
-
-    <!-- Features Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="section-title bg-white text-start text-primary pe-3">Why Us!</p>
-                    <h1 class="mb-4">Few Reasons Why People Choosing Us!</h1>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam
-                        et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat
-                        amet</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Justo magna erat amet</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Aliqu diam amet diam et eos</p>
-                    <p><i class="fa fa-check text-primary me-3"></i>Clita erat ipsum et lorem et sit</p>
-                    <a class="btn btn-secondary rounded-pill py-3 px-5 mt-3" href="">Explore More</a>
-                </div>
-                <div class="col-lg-6">
-                    <div class="rounded overflow-hidden">
-                        <div class="row g-0">
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="text-center bg-primary py-5 px-4">
-                                    <img class="img-fluid mb-4"
-                                        src="{{ asset('frontend_assets/img/experience.png') }}" alt="">
-                                    <h1 class="display-6 text-white" data-toggle="counter-up">25</h1>
-                                    <span class="fs-5 fw-semi-bold text-secondary">Years Experience</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
-                                <div class="text-center bg-secondary py-5 px-4">
-                                    <img class="img-fluid mb-4" src="{{ asset('frontend_assets/img/award.png') }}"
-                                        alt="">
-                                    <h1 class="display-6" data-toggle="counter-up">183</h1>
-                                    <span class="fs-5 fw-semi-bold text-primary">Award Winning</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                <div class="text-center bg-secondary py-5 px-4">
-                                    <img class="img-fluid mb-4" src="{{ asset('frontend_assets/img/animal.png') }}"
-                                        alt="">
-                                    <h1 class="display-6" data-toggle="counter-up">2619</h1>
-                                    <span class="fs-5 fw-semi-bold text-primary">Total Animals</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-                                <div class="text-center bg-primary py-5 px-4">
-                                    <img class="img-fluid mb-4" src="{{ asset('frontend_assets/img/client.png') }}"
-                                        alt="">
-                                    <h1 class="display-6 text-white" data-toggle="counter-up">51940</h1>
-                                    <span class="fs-5 fw-semi-bold text-secondary">Happy Clients</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Features End -->
 
 
     <!-- Banner Start -->
@@ -452,96 +477,6 @@
     <!-- Gallery End -->
 
 
-    <!-- Product Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="section-title bg-white text-center text-primary px-3">Our Products</p>
-                <h1 class="mb-5">Our Dairy Products For Healthy Living</h1>
-            </div>
-            <div class="row gx-4">
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('frontend_assets/img/product-1.jpg') }}"
-                                alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Pure Milk</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('frontend_assets/img/product-2.jpg') }}"
-                                alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Fresh Meat</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('frontend_assets/img/product-3.jpg') }}"
-                                alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Dairy Products</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="product-item">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('frontend_assets/img/product-4.jpg') }}"
-                                alt="">
-                            <div class="product-overlay">
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-link"></i></a>
-                                <a class="btn btn-square btn-secondary rounded-circle m-1" href=""><i
-                                        class="bi bi-cart"></i></a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4">
-                            <a class="d-block h5" href="">Organic Food</a>
-                            <span class="text-primary me-1">$19.00</span>
-                            <span class="text-decoration-line-through">$29.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Product End -->
-
-
     <!-- Team Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -675,7 +610,7 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="text-white mb-4">Our Office</h5>
+                    <h5 class="text-white mb-4"><img src="{{ asset('frontend_assets/image/logo-invers.png') }}" width="250"></h5>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
