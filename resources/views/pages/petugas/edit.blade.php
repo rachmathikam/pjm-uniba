@@ -167,8 +167,8 @@
                 e.preventDefault();
                 var data = new FormData(this);
                 $.ajax({
-                    type: "POST",
-                    url : "{{ route('petugas.updated',$petugas->id) }}",
+                    type: "PUT",
+                    url : "{{ route('petugas.updated',$petugas->slug) }}",
                     data: data,
                     headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

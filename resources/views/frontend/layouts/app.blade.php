@@ -194,7 +194,7 @@
         <div class="row g-5 align-items-center">
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                 <p class="section-title bg-white text-start text-primary pe-3">PJM</p>
-                <h1 class="mb-4">Berikut Bagian Dari PJM</h1>
+                <h1 class="mb-4">Berikut Bagian Dari PJM UNIBA MADURA</h1>
                 <p><i class="fa fa-check text-primary me-3"></i>SPMI</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Akreditasi</p>
                 <p><i class="fa fa-check text-primary me-3"></i>AMI</p>
@@ -246,19 +246,18 @@
                 <div class="col-lg-6">
                     <div class="row g-2">
                         <div class="col-6 position-relative wow fadeIn" data-wow-delay="0.7s">
-                            <div class="about-experience bg-secondary-1 rounded">
-                                <h1 class="display-1 mb-0">5</h1>
-                                <small class="fs-5 fw-bold">Tahun Experience</small>
+                            <div class="about-experience  rounded">
+                                <img class="img-fluid rounded" src="{{ asset('frontend_assets/image/berita-4.JPG') }}">
                             </div>
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.1s">
-                            <img class="img-fluid rounded" src="{{ asset('frontend_assets/img/service-1.jpg') }}">
+                            <img class="img-fluid rounded" src="{{ asset('frontend_assets/image/berita.JPG') }}">
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.3s">
-                            <img class="img-fluid rounded" src="{{ asset('frontend_assets/img/service-2.jpg') }}">
+                            <img class="img-fluid rounded" src="{{ asset('frontend_assets/image/berita-1.jpg') }}">
                         </div>
                         <div class="col-6 wow fadeIn" data-wow-delay="0.5s">
-                            <img class="img-fluid rounded" src="{{ asset('frontend_assets/img/service-3.jpg') }}">
+                            <img class="img-fluid rounded" src="{{ asset('frontend_assets/image/slider-dua.png') }}">
                         </div>
                     </div>
                 </div>
@@ -289,7 +288,7 @@
 
     <!-- Banner Start -->
     <div class="container-fluid banner my-5 py-5" data-parallax="scroll"
-        data-image-src="{{ asset('frontend_assets/img/ban') }}ner.jpg">
+        data-image-src="{{ asset('frontend_assets/image/student-banner.JPG') }}" style="background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0))">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">

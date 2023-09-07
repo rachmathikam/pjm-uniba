@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\VisiMisiController;
+use App\Http\Controllers\BeritaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,12 @@ Route::post('/tambah-misi', [App\Http\Controllers\VisiMisiController::class, 'ta
 Route::post('/tambah-tujuan', [App\Http\Controllers\VisiMisiController::class, 'tambahTujuan'])->name('tambah.tujuan');
 Route::post('/edit-visimisi', [App\Http\Controllers\VisiMisiController::class, 'editVisiMisi'])->name('edit.visimisi');
 Route::post('/delete-visimisi', [App\Http\Controllers\VisiMisiController::class, 'delete'])->name('visimisi.delete');
+
+// berita
+Route::resource('berita',BeritaController::class);
+Route::post('/berita-updated/{id}', [App\Http\Controllers\BeritaController::class, 'updated'])->name('berita.updated');
+Route::post('/berita-delete', [App\Http\Controllers\BeritaController::class, 'delete'])->name('berita.delete');
+
 
 
 

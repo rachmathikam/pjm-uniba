@@ -78,16 +78,46 @@
                     <h4 class="text-section">Setting Web Profile</h4>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('visimisi.index') }}">
-                        <i class="fas fa-cog"></i>
-                        <p>Setting</p>
+                    <a data-toggle="collapse" href="#table" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-list"></i>
+                        <p>Master Web Profile</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse" id="table">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="../../demo1/index.html">
+                                    <span class="sub-item">Setting Beranda</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../demo2/index.html">
+                                    <span class="sub-item">Setting Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../demo2/index.html">
+                                    <span class="sub-item">SPMI & AMI</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../demo2/index.html">
+                                    <span class="sub-item">Dokumen</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../demo2/index.html">
+                                    <span class="sub-item">Setting Media</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
-                    <h4 class="text-section">PUSAT JAMINAN MUTU</h4>
+                    <h4 class="text-section">Media PJM</h4>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('visimisi.index') }}">
@@ -95,6 +125,11 @@
                         <p>Visi-Misi & Tujuan</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('berita.index') }}">
+                        <i class="fas fa-newspaper"></i>
+                        <p>Berita</p>
+                    </a>
             </ul>
         </div>
     </div>
