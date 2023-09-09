@@ -75,7 +75,7 @@
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
-                    <h4 class="text-section">Setting Web Profile</h4>
+                    <h4 class="text-section">Master</h4>
                 </li>
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#table" class="collapsed" aria-expanded="false">
@@ -98,6 +98,7 @@
                             <li>
                                 <a href="../../demo2/index.html">
                                     <span class="sub-item">SPMI & AMI</span>
+
                                 </a>
                             </li>
                             <li>
@@ -113,6 +114,55 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('kategori.index') }}">
+                        <i class="fas fa-database"></i>
+                        <p>Master Kategori</p>
+                    </a>
+                </li>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">Profile PJM</h4>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#form" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-tasks"></i>
+                        <p>Profile PJM Uniba</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="form">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="{{ route('profile.index') }}">
+                                    <span class="sub-item">Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('visimisi.index') }}">
+                                    <span class="sub-item">Visi & Misi / Tujuan</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../demo2/index.html">
+                                    <span class="sub-item">Personalia</span>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('tupoksi.index') }}">
+                                    <span class="sub-item">Tupoksi PJM Uniba</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../demo2/index.html">
+                                    <span class="sub-item">Roadmap Penjaminan Mutu Uniba</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -120,9 +170,9 @@
                     <h4 class="text-section">Media PJM</h4>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('visimisi.index') }}">
-                        <i class="fas fa-info"></i>
-                        <p>Visi-Misi & Tujuan</p>
+                    <a href="{{ route('berita.index') }}">
+                        <i class="fas fa-bullhorn"></i>
+                        <p>Pengumuman</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -130,6 +180,19 @@
                         <i class="fas fa-newspaper"></i>
                         <p>Berita</p>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('berita.index') }}">
+                        <i class="fas fa-film"></i>
+                        <p>Agenda</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('berita.index') }}">
+                        <i class="fas fa-image"></i>
+                        <p>Foto</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

@@ -141,7 +141,7 @@ class VisiMisiController extends Controller
                 foreach ($request->all() as $key => $i) {
                     foreach ($i as $a) {
                         VisiMisi::create([
-                            'kategori' => $key,
+                            'kategori' => $key, 
                             'deskripsi' => $a,
                         ]);
 

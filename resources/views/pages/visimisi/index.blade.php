@@ -280,9 +280,9 @@
                                 @php $no = 1 @endphp
                                 @foreach ($visiMisi as $data)
                                     <tr id="data{{ $data->id }}">
-                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
-                                                value="{{ $data->id }}">
-                                        <td>
+                                            <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                                    value="{{ $data->id }}">
+                                            <td>
                                             <span class="editSpan kategori" id="spanKategori">{{ $data->kategori }}</span>
                                             <select name="kategori" id="InputKategori" class=" editInput kategori"
                                                 style="display: none;">
@@ -834,6 +834,7 @@
                         });
                         trObj.find(".editSpan.kategori").text(response.data.kategori);
                         trObj.find(".editInput.kategori").val(response.data.kategori);
+
                         trObj.find(".editSpan.deskripsi").text(response.data.deskripsi);
                         trObj.find(".editInput.deskripsi").val(response.data.deskripsi);
                         trObj.find(".editInput").hide();

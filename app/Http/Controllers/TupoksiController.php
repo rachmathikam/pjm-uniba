@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tujuan;
+use App\Models\Tupoksi;
 use Illuminate\Http\Request;
 
-class TujuanController extends Controller
+class TupoksiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,13 @@ class TujuanController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'company' => 'PJM - Uniba Madura',
+            'title' => 'Profile'
+        ];
+
+        $tupoksi = Tupoksi::all();
+        return view('pages.tupoksi.index', compact('tupoksi', 'data'));
     }
 
     /**
@@ -41,10 +47,10 @@ class TujuanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tujuan  $tujuan
+     * @param  \App\Models\Tupoksi  $tupoksi
      * @return \Illuminate\Http\Response
      */
-    public function show(Tujuan $tujuan)
+    public function show(Tupoksi $tupoksi)
     {
         //
     }
@@ -52,10 +58,10 @@ class TujuanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tujuan  $tujuan
+     * @param  \App\Models\Tupoksi  $tupoksi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tujuan $tujuan)
+    public function edit(Tupoksi $tupoksi)
     {
         //
     }
@@ -64,10 +70,10 @@ class TujuanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tujuan  $tujuan
+     * @param  \App\Models\Tupoksi  $tupoksi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tujuan $tujuan)
+    public function update(Request $request, Tupoksi $tupoksi)
     {
         //
     }
@@ -75,10 +81,10 @@ class TujuanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tujuan  $tujuan
+     * @param  \App\Models\Tupoksi  $tupoksi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tujuan $tujuan)
+    public function destroy(Tupoksi $tupoksi)
     {
         //
     }
