@@ -79,8 +79,8 @@
                                                             class="fa fa-times"></i></button>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                     </tbody>
-                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                 time: 1500,
                                 delay: 1000,
 			                });
-                        }else{
+                        }else if(response.status == 400){
                             var content = {};
 			                content.title = 'Pesan Error';
                             content.message = 'Data gagal di tambah';
@@ -172,6 +172,20 @@
                             $('#' + field).addClass('is-invalid');
                             $('#' + field + '-error').text(errors[0]).wrapInner("<strong />");
                         });
+                        }else{
+                            var content = {};
+			                content.title = 'Pesan Error';
+                            content.message = response.errors;
+                            content.icon = 'fa fa-times';
+                            $.notify(content,{
+                                type: 'danger',
+                                placement: {
+                                    from: "top",
+                                    align: "right",
+                                },
+                               delay: 2000,
+	                           timer: 2000,
+			                });
                         }
                     },
                 });
@@ -256,7 +270,7 @@
 
         $(document).on('change', '.checkbox_ids', function() {
             var anyChecked = $('.checkbox_ids:checked').length > 0;
-        
+
             $('.deleteData').prop('disabled', !anyChecked);
             if (anyChecked == 0) {
                 $('#select_all_ids').prop('checked', false);

@@ -467,6 +467,11 @@
                                                 value="${value.deskripsi}">
                                         </td>
                                         <td>
+                                            <span class="editSpan status"> ${value.status}</span>
+                                            <input type="text" class="editInput status" name="status"
+                                                value="${value.status}">
+                                        </td>
+                                        <td>
                                             <button class="btn text-warning btn-sm edit_inline"><i
                                                     class="fa fa-edit"></i></button>
                                             <button class="btn text-black btnSave btn-sm" style="display: none"><i
@@ -564,6 +569,11 @@
                                                 value="${value.deskripsi}">
                                         </td>
                                         <td>
+                                            <span class="editSpan status"> ${value.status}</span>
+                                            <input type="text" class="editInput status" name="status"
+                                                value="${value.status}">
+                                        </td>
+                                        <td>
                                             <button class="btn text-warning btn-sm edit_inline"><i
                                                     class="fa fa-edit"></i></button>
                                             <button class="btn text-black btnSave btn-sm" style="display: none"><i
@@ -659,6 +669,11 @@
                                             <span class="editSpan deskripsi"> ${value.deskripsi}</span>
                                             <input type="text" class="editInput deskripsi" name="deskripsi"
                                                 value="${value.deskripsi}">
+                                        </td>
+                                        <td>
+                                            <span class="editSpan status"> ${value.status}</span>
+                                            <input type="text" class="editInput status" name="status"
+                                                value="${value.status}">
                                         </td>
                                         <td>
                                             <button class="btn text-warning btn-sm edit_inline"><i

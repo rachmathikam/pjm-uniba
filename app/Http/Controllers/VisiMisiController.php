@@ -105,14 +105,13 @@ class VisiMisiController extends Controller
                 ]);
 
             }else{
-                foreach ($request->all() as $key => $i) {
-                    foreach ($i as $a) {
-                        VisiMisi::create([
-                            'kategori' => $key,
-                            'deskripsi' => $a,
-                        ]);
-
-                    }
+                foreach ($request->misi as $key => $i) {
+                    VisiMisi::create([
+                        'kategori' => $request->kategori,
+                        'deskripsi' => $i,
+                        'tanggalmasuk' => $request->tanggalawal,
+                        'tanggalkeluar' => $request->tanggalakhir,
+                    ]);
                }
                $data = VisiMisi::all();
                return response()->json([
@@ -138,15 +137,15 @@ class VisiMisiController extends Controller
                 ]);
 
             }else{
-                foreach ($request->all() as $key => $i) {
-                    foreach ($i as $a) {
-                        VisiMisi::create([
-                            'kategori' => $key, 
-                            'deskripsi' => $a,
-                        ]);
+                foreach ($request->misi as $key => $i) {
+                    VisiMisi::create([
+                        'kategori' => $request->kategori,
+                        'deskripsi' => $i,
+                        'tanggalmasuk' => $request->tanggalawal,
+                        'tanggalkeluar' => $request->tanggalakhir,
+                    ]);
+                }
 
-                    }
-               }
                $data = VisiMisi::all();
                return response()->json([
                   'status' => 200,

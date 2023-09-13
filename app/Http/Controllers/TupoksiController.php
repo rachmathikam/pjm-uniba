@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tupoksi;
+use App\Models\KategoriSubKategori;
+
 use Illuminate\Http\Request;
 
 class TupoksiController extends Controller
@@ -16,11 +18,16 @@ class TupoksiController extends Controller
     {
         $data = [
             'company' => 'PJM - Uniba Madura',
-            'title' => 'Profile'
+            'title' => 'Tupoksi PJM'
         ];
+        $datas = 'Tupoksi';
+        $kategori = KategoriSubKategori::leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
+                                        ->leftJoin('sub_kategori','sub_kategori.id', 'kategori_sub_kategori.sub_kategori_id')
+                                        ->where('kategori','LIKE','%'.$datas.'%')
+                                        ->select('kategori_sub_kategori.id','kategori.kategori','sub_kategori.sub_kategori')->get();
 
         $tupoksi = Tupoksi::all();
-        return view('pages.tupoksi.index', compact('tupoksi', 'data'));
+        return view('pages.tupoksi.index', compact('tupoksi', 'data','kategori'));
     }
 
     /**

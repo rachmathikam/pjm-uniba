@@ -134,11 +134,16 @@
                     </a>
                     <div class="collapse" id="form">
                         <ul class="nav nav-collapse">
+                            @php
+                                $check = \DB::table('kategori_sub_kategori')->join('kategori','kategori.id','kategori_sub_kategori.kategori_id')->where('kategori','Profile')->first();
+                            @endphp
+                            @if(!empty($check))
                             <li>
                                 <a href="{{ route('profile.index') }}">
                                     <span class="sub-item">Profile</span>
                                 </a>
                             </li>
+                            @endif
                             <li>
                                 <a href="{{ route('visimisi.index') }}">
                                     <span class="sub-item">Visi & Misi / Tujuan</span>

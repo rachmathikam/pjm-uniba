@@ -47,6 +47,12 @@
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#masterKategori">
                                 + Tambah Master Kategori
                                 </button>
+                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#table_kategori">
+                                 Table Kategori
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#table_sub_kategori">
+                                    Table Sub Kategori
+                                   </button>
                               <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Haput Terpilih</button>
                         </div>
                         <div class="card-body">
@@ -78,7 +84,7 @@
                                                         value="{{ $data->kategori }}">
                                                 </td>
                                                 <td>
-                                <span class="editSpan"> {{ $data->sub_kategori }}</span>
+                                              <span class="editSpan"> {{ $data->sub_kategori }}</span>
                                                     <input type="text" class="editInput subkategori" name="sub_kategori"
                                                         value="{{ $data->sub_kategori }}">
                                                 </td>
@@ -91,8 +97,8 @@
                                                             class="fa fa-times"></i></button>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                     </tbody>
-                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -163,7 +169,7 @@
           </div>
         </div>
       </div>
-      <!-- End Modal -->
+      <!-- End Modal subkategori-->
 
       <!-- Modal masterKategori -->
     <div class="modal fade" id="masterKategori" tabindex="-1" role="dialog" aria-labelledby="masterKategori" aria-hidden="true">
@@ -180,14 +186,24 @@
                     @csrf
                     <div class="form-group col-md-6">
                         <label for="kategori">Kategori</label>
-                        <input type="text" name="kategori_id" class="form-control" id="kategori_id">
+                        <select name="kategori_id" id="kategori_id" class="form-control">
+                            <option selected disabled>-- Pilih Kategori -- </option>
+                            @foreach ($kategori as $item)
+                            <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+                            @endforeach
+                        </select>
                         <div class="invalid-feedback " id='kategori_id-error'>
 
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="subkategori">Sub Kategori</label>
-                        <input type="text" name="sub_kategori_id" class="form-control" id="sub_kategori_id">
+                        <select name="sub_kategori_id" id="sub_kategori_id" class="form-control">
+                            <option selected disabled>-- Pilih Sub Kategori -- </option>
+                            @foreach ($subKategoris as $item)
+                            <option value="{{ $item->id }}">{{ $item->sub_kategori }}</option>
+                            @endforeach
+                        </select>
                         <div class="invalid-feedback " id='sub_kategori_id-error'>
 
                         </div>
@@ -201,7 +217,138 @@
           </div>
         </div>
       </div>
-      <!-- End Modal -->
+      <!-- End Modal masterKategori -->
+
+
+       <!-- Modal table kategori -->
+    <div class="modal fade" id="table_kategori" tabindex="-1" role="dialog" aria-labelledby="table_kategori" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="table_kategori">Data Kategori</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="display table  table-hover">
+                            <thead>
+                                <tr>
+                                    @if ($kategori->isEmpty())
+                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                            class="ml-3 mt-2 checkbox-item" disabled></th>
+                                    @else
+                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                                class="ml-3 mt-2 checkbox-item"></th>
+                                    @endif
+                                    <th>Kategori</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="add_new">
+                                @foreach ($kategori as $data)
+                                    <tr id="data{{ $data->id }}">
+                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                            value="{{ $data->id }}">
+                                        </td>
+                                        <td>
+                                            <span class="editSpan kategori"> {{ $data->kategori }}</span>
+                                            <input type="text" class="editInput kategori" name="kategori"
+                                                value="{{ $data->kategori }}">
+                                        </td>
+                                        <td>
+                                            <button class="btn text-warning btn-sm edit_inline"><i
+                                                    class="fa fa-edit"></i></button>
+                                            <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                    class="fa fa-check"></i></button>
+                                            <button class="btn text-danger editCancel btn-sm" style="display: none"><i
+                                                    class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal table kategori -->
+
+
+      <!-- Modal table Sub Kategori -->
+    <div class="modal fade" id="table_sub_kategori" tabindex="-1" role="dialog" aria-labelledby="table_sub_kategori" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="table_sub_kategori">Data Sub Kategori</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="display table  table-hover">
+                            <thead>
+                                <tr>
+                                    @if ($subKategori->isEmpty())
+                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                            class="ml-3 mt-2 checkbox-item" disabled></th>
+                                    @else
+                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                                class="ml-3 mt-2 checkbox-item"></th>
+                                    @endif
+                                    <th>Sub Kategori</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="add_new">
+                                @foreach ($subKategori as $data)
+                                    <tr id="data{{ $data->id }}">
+                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                            value="{{ $data->id }}">
+                                        </td>
+                                        <td>
+                                            <span class="editSpan sub_kategori"> {{ $data->sub_kategori }}</span>
+                                            <input type="text" class="editInput sub_kategori" name="sub_kategori"
+                                                value="{{ $data->sub_kategori }}">
+                                        </td>
+                                        <td>
+                                            <button class="btn text-warning btn-sm edit_inline"><i
+                                                    class="fa fa-edit"></i></button>
+                                            <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                    class="fa fa-check"></i></button>
+                                            <button class="btn text-danger editCancel btn-sm" style="display: none"><i
+                                                    class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal table kategori -->
+
+
+
+
+
 
     <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="../../assets/js/plugin/datatables/datatables.min.js"></script>

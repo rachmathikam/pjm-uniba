@@ -16,7 +16,10 @@ class CreateTupoksisTable extends Migration
         Schema::create('tupoksis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kategori_sub_kategori')->references('id')->on('kategori_sub_kategori')->onDelete('cascade');
+            $table->enum('status',['publish','non_publish'])->default('non_publish');
             $table->string('deskripsi');
+            $table->date('tanggalmasuk');
+            $table->date('tanggalkeluar');
             $table->timestamps();
         });
     }

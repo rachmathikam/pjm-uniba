@@ -30,7 +30,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Profile</a>
+                        <a href="#">Tupoksi PJM</a>
                     </li>
                 </ul>
             </div>
@@ -39,7 +39,7 @@
                     <div class="card">
                         <div class="card-header">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                               + Tambah Profile
+                               + Tambah Tupoksi PJM
                               </button>
                               <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Haput Terpilih</button>
                         </div>
@@ -55,7 +55,7 @@
                                                 <th style="width: 10%"><input type="checkbox" id="select_all_ids"
                                                         class="ml-3 mt-2 checkbox-item"></th>
                                             @endif
-                                            <th>Profile</th>
+                                            <th>Tupoksi PJM</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -95,7 +95,6 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Tambah Profile</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -104,8 +103,13 @@
                 <form id="add_form">
                     @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Profile</label>
-                        <input type="text" name="profile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1">Pilih Master Kategori</label>
+                        <select name="kategori_sub_kategori_id" id="kategori_sub_kategori_id" class="form-control">
+                            <option selected disabled>-- Pilih Master Kategori --</option>
+                            @foreach ($kategori as $item)
+                                <option value="{{ $item->id }}">{{ $item->kategori }} - {{ $item->sub_kategori }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

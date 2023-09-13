@@ -15,7 +15,8 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('profile');
+            $table->foreignId('kategori_sub_kategori')->references('id')->on('kategori_sub_kategori')->onDelete('cascade');
+            $table->string('profile',1000);
             $table->enum('status',['punlish','no_publish'])->default('no_publish');
             $table->timestamps();
         });
