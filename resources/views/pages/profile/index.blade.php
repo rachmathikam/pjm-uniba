@@ -41,7 +41,7 @@
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                + Tambah Profile
                               </button>
-                              <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Haput Terpilih</button>
+                              <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Hapus Terpilih</button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -328,6 +328,15 @@
                                     time: 1500,
                                     delay: 1500,
                                 });
+                                if (response.select == 'disabled') {
+                                    $(".checkbox-item").prop("checked", false);
+                                    $('.deleteData').prop('disabled', true);
+                                    $(".checkbox-item").attr('disabled', true);
+
+                                } else if (response.select == 'ada') {
+                                    $('.deleteData').prop('disabled', true);
+                                    $("#select_all_ids").prop("checked", false);
+                                }
                                 $.each(response.data, function(key, value) {
                                     var datas = $('#data' + value);
                                     datas.remove();

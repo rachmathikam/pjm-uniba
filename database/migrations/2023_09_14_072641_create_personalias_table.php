@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTupoksisTable extends Migration
+class CreatePersonaliasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTupoksisTable extends Migration
      */
     public function up()
     {
-        Schema::create('tupoksis', function (Blueprint $table) {
+        Schema::create('personalias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kategori_sub_kategori_id')->references('id')->on('kategori_sub_kategori')->onDelete('cascade');
             $table->enum('status',['publish','non_publish'])->default('non_publish');
@@ -29,6 +29,6 @@ class CreateTupoksisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tupoksis');
+        Schema::dropIfExists('personalias');
     }
 }

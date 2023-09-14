@@ -53,7 +53,7 @@
                                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#table_sub_kategori">
                                     Table Sub Kategori
                                    </button>
-                              <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Haput Terpilih</button>
+                              <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Hapus Terpilih</button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

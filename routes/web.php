@@ -6,7 +6,10 @@ use App\Http\Controllers\VisiMisiController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TupoksiController;
+use App\Http\Controllers\PersonaliaController;
 use App\Http\Controllers\KategoriSubKategoriController;
+use App\Http\Controllers\PengurusPersonaliaController;
+
 
 
 /*
@@ -58,6 +61,19 @@ Route::post('/profile-delete', [App\Http\Controllers\ProfileController::class, '
 Route::resource('tupoksi',TupoksiController::class);
 Route::post('/tupoksi-updated', [App\Http\Controllers\TupoksiController::class, 'updated'])->name('tupoksi.updated');
 Route::post('/tupoksi-delete', [App\Http\Controllers\TupoksiController::class, 'delete'])->name('tupoksi.delete');
+Route::post('/tupoksi-updated', [App\Http\Controllers\TupoksiController::class, 'updated'])->name('tupoksi.updated');
+
+//personalia
+Route::resource('personalia',PersonaliaController::class);
+Route::post('/personalia-updated', [App\Http\Controllers\PersonaliaController::class, 'updated'])->name('personalia.updated');
+Route::post('/personalia-delete', [App\Http\Controllers\PersonaliaController::class, 'delete'])->name('personalia.delete');
+Route::post('/personalia-updated', [App\Http\Controllers\PersonaliaController::class, 'updated'])->name('personalia.updated');
+
+//pengurus personalia
+Route::resource('pengurus_personalia',PengurusPersonaliaController::class);
+Route::post('/pengurus_personalia-updated', [App\Http\Controllers\PengurusPersonaliaController::class, 'updated'])->name('pengurus_personalia.updated');
+Route::post('/pengurus_personalia-delete', [App\Http\Controllers\PengurusPersonaliaController::class, 'delete'])->name('pengurus_personalia.delete');
+Route::post('/pengurus_personalia-updated', [App\Http\Controllers\PengurusPersonaliaController::class, 'updated'])->name('pengurus_personalia.updated');
 
 // Master Kategori
 Route::resource('kategori',KategoriSubKategoriController::class);

@@ -64,7 +64,7 @@ class ProfileController extends Controller
         $kategori = Kategori::where('kategori',$profile)->first();
         // dd($kategori->kategori);
         if($profile != $kategori->kategori){
-            // dd($profile);
+
             return response()->json([
                 'status' => 401,
                 'errors' => 'Silahkan check kategori dengan nama profile jika tidak ada atau salah penamaan silahkan di update !',
@@ -152,7 +152,7 @@ class ProfileController extends Controller
 
                return response()->json([
                  'status' => 200,
-                 'message' => 'data berhasil di tambahkan',
+                 'message' => 'data berhasil di update',
                  'data' => $datas
                ]);
         }
@@ -169,6 +169,22 @@ class ProfileController extends Controller
         foreach ($request->ids as $id) {
             Profile::destroy($id);
         }
+
+        $profile = Profile::all();
+        $select = '';
+        if($profile->isEmpty()){
+           $select .= 'disabled';
+        }else{
+             $select .= 'ada';
+        }
+        // dd($select);
+
+        return response()->json([
+          'status' => 200,
+          'message' => 'data berhasil di hapus',
+          'data' => $request->ids,
+          'select' => $select
+         ]);
         return response()->json([
           'status' => 200,
           'message' => 'data berhasil di hapus',

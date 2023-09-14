@@ -30,7 +30,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Tupoksi PJM</a>
+                        <a href="#">Personalia PJM</a>
                     </li>
                 </ul>
             </div>
@@ -39,8 +39,14 @@
                     <div class="card">
                         <div class="card-header">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                               + Tambah Tupoksi PJM
+                               + Tambah Personalia PJM
                               </button>
+                              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah_pengurus">
+                                + Tambah Pengurus Personalia PJM
+                               </button>
+                              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pengurus_personalia">
+                                + Data Pengurus Personalia PJM
+                               </button>
                               <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Hapus Terpilih</button>
                         </div>
                         <div class="card-body">
@@ -48,7 +54,7 @@
                                 <table id="multi-filter-select" class="display table  table-hover">
                                     <thead>
                                         <tr>
-                                            @if ($tupoksi->isEmpty())
+                                            @if ($personalia->isEmpty())
                                             <th style="width: 10%"><input type="checkbox" id="select_all_ids"
                                                     class="ml-3 mt-2 checkbox-item" disabled></th>
                                             @else
@@ -56,13 +62,13 @@
                                                         class="ml-3 mt-2 checkbox-item"></th>
                                             @endif
                                             <th>Master Kategori</th>
-                                            <th>Tupoksi PJM</th>
+                                            <th>Personalia PJM</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="add_new">
-                                        @foreach ($tupoksi as $data)
+                                        @foreach ($personalia as $data)
                                             <tr id="data{{ $data->id }}">
                                                 <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
                                                     value="{{ $data->id }}">
@@ -77,7 +83,7 @@
                                                     </td>
                                                 <td>
                                                     <span class="editSpan deskripsi"> {{ $data->deskripsi }}</span>
-                                                    <input type="text" class="editInput deskripsi" name="tupoksi"
+                                                    <input type="text" class="editInput deskripsi" name="personalia"
                                                         value="{{ $data->deskripsi }}">
                                                 </td>
                                                 <td>
@@ -104,7 +110,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -130,9 +135,9 @@
 
                     </div>
                     <div class="form-group">
-                        <label for="tupoksi">Isi</label>
-                    <textarea name="tupoksi" id="tupoksi" rows="3" class="form-control"></textarea>
-                    <div class="invalid-feedback" id="tupoksi-error">
+                        <label for="personalia">Isi</label>
+                    <textarea name="personalia" id="personalia" rows="3" class="form-control"></textarea>
+                    <div class="invalid-feedback" id="personalia-error">
 
                       </div>
                     </div>
@@ -142,6 +147,146 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
+          </div>
+        </div>
+      </div>
+
+       <!--Tambah Modal Pengurus  Personalia -->
+    <div class="modal fade" id="tambah_pengurus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5>Tambah Pengurus Personalia</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="add_form_pengurus" class="row">
+                    @csrf
+                    <div class="form-group col-md-12">
+                        <label for="exampleInputEmail1"> Kategori</label>
+                        <select name="kategori_sub_kategori_id" id="kategori_sub_kategori_id" class="form-control mb-2">
+                            <option selected disabled>-- Kategori --</option>
+                            @foreach ($kategoris as $item)
+                                <option value="{{ $item->id }}">{{ $item->sub_kategori }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback" id="kategori_sub_kategori_id-error">
+
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                     <label for="nama_pengurus">Nama Pengurus</label>
+                        <input name="nama_pengurus" id="nama_pengurus" class="form-control">
+                         <div class="invalid-feedback" id="nama_pengurus-error">
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="jabatan">Jabatan</label>
+                           <input name="jabatan" id="jabatan" class="form-control">
+                            <div class="invalid-feedback" id="jabatan-error">
+
+                           </div>
+                       </div>
+                       <div class="form-group col-sm-8">
+                        <label for="">Foto</label>
+                        <input type="file" class="form-control" name="image" id="image"
+                            onchange="document.getElementById('ba').src = window.URL.createObjectURL(this.files[0])">
+                        <div class="invalid-feedback " id='image-error'>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4 mb-2">
+                        <img src="https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                            id="ba" alt="your image" width="100" height="100">
+                        <small id="before_change">Contoh Foto</small>
+                        <small id="after_change" style="display:none;">Foto saat ini</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal -->
+
+    <!-- Modal Data Pengurus  Personalia -->
+    <div class="modal fade" id="pengurus_personalia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5>Data Pengurs Personalia</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="display table  table-hover">
+                            <thead>
+                                <tr>
+                                    @if ($pengurus_personalias->isEmpty())
+                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                            class="ml-3 mt-2 checkbox-item" disabled></th>
+                                    @else
+                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                                class="ml-3 mt-2 checkbox-item"></th>
+                                    @endif
+                                    <th>Kategori</th>
+                                    <th>Pengurus Personalia PJM</th>
+                                    <th>Jabatan</th>
+                                    <th>Foto</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="add_new">
+                                @foreach ($pengurus_personalias as $data)
+                                    <tr id="data{{ $data->id }}">
+                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                            value="{{ $data->id }}">
+                                        </td>
+                                        <td>
+                                            <span class="editSpan kategori_sub_kategori_id">{{ $data->kategori }} - {{ $data->sub_kategori }}</span>
+                                            <select name="kategori_sub_kategori_id"  class="form-control editInput kategori_sub_kategori_id mb-2">
+                                                @foreach ($kategori as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->kategori }} - {{ $item->sub_kategori }}</option>
+                                                @endforeach
+                                            </select>
+                                            </td>
+                                        <td>
+                                            <span class="editSpan nama"> {{ $data->nama }}</span>
+                                            <input type="text" class="editInput nama" name="personalia"
+                                                value="{{ $data->nama }}">
+                                        </td>
+                                        <td>
+                                            <span class="jabatan"> {{ $data->jabatan }}</span>
+
+                                        </td>
+                                        <td><img src="{{ asset('assets/image/pengurus_personalia') }}/{{ $data->foto }}"
+                                            width="100"></td>
+                                        <td>
+                                            <button class="btn text-warning btn-sm edit_inline"><i
+                                                    class="fa fa-edit"></i></button>
+                                            <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                    class="fa fa-check"></i></button>
+                                            <button class="btn text-danger editCancel btn-sm" style="display: none"><i
+                                                    class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
           </div>
         </div>
       </div>
@@ -158,11 +303,70 @@
             "ordering": false,
         });
 
+        $("#add_form_pengurus").on('submit', function(e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                $.ajax({
+                    url : "{{ route('pengurus_personalia.store') }}",
+                    data: data,
+                    type: "POST",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == 200) {
+                          var content = {};
+                            content.message = 'Data berhasil di tambah';
+                            content.icon = 'fa fa-check';
+			                content.title = 'Pesan Success';
+                            $.notify(content,{
+                                type: 'primary',
+                                placement: {
+                                    from: "top",
+                                    align: "right",
+                                },
+                                time: 1500,
+                                delay: 1000,
+			                });
+                        }else{
+                            var content = {};
+			                content.title = 'Pesan Error';
+                            content.message = 'Data gagal di tambah';
+                            content.icon = 'fa fa-times';
+                            $.notify(content,{
+                                type: 'danger',
+                                placement: {
+                                    from: "top",
+                                    align: "right",
+                                },
+                               delay: 1000,
+	                           timer: 1000,
+			                });
+                             $.each(response.data, function(field, errors) {
+                            $('#' + field).addClass('is-invalid');
+                            $('#' + field + '-error').text(errors[0]).wrapInner("<strong />");
+                        });
+                        }
+                    },
+                });
+            });
+
+            $("#add_new").on('click', '.edit_inline', function() {
+            var btn = $(this);
+            btn.closest("tr").find(".edit_inline").hide();
+
+            $(this).closest("tr").find(".editSpan").hide();
+            $(this).closest("tr").find(".editInput").show();
+            $(this).closest("tr").find(".editCancel").show();
+            $(this).closest("tr").find(".edit_inline").hide();
+            $(this).closest("tr").find(".btnSave").show();
+        });
+
         $("#add_form").on('submit', function(e) {
                 e.preventDefault();
                 var data = new FormData(this);
                 $.ajax({
-                    url : "{{ route('tupoksi.store') }}",
+                    url : "{{ route('personalia.store') }}",
                     data: data,
                     type: "POST",
                     contentType: false,
@@ -238,7 +442,7 @@
             var inputData = $(this).closest("tr").find(".editInput").serialize();
             $.ajax({
                 type: "POST",
-                url: "{{ route('tupoksi.updated') }}",
+                url: "{{ route('personalia.updated') }}",
                 dataType: "json",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -275,8 +479,8 @@
             });
         });
 
-        $('#tupoksi').on('click', function() {
-            $('#tupoksi').removeClass('is-valid is-invalid');
+        $('#personalia').on('click', function() {
+            $('#personalia').removeClass('is-valid is-invalid');
         });
 
         $('#kategori_sub_kategori_id').on('change', function() {
@@ -333,7 +537,7 @@
                 if (result.value) {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('tupoksi.delete') }}",
+                            url: "{{ route('personalia.delete') }}",
                             type: "POST",
                             data: {
                                 ids: all_ids,
