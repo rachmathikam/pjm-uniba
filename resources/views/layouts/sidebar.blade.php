@@ -168,6 +168,47 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#divisi" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-university"></i>
+                        <p>Divisi PJM Uniba</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="divisi">
+                        <ul class="nav nav-collapse">
+                            @php
+                                $check = \DB::table('kategori_sub_kategori')->join('kategori','kategori.id','kategori_sub_kategori.kategori_id')->where('kategori','Profile')->first();
+                            @endphp
+
+                            <li>
+                                <a href="{{ route('profile.index') }}">
+                                    <span class="sub-item">Divisi Akreditasi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('visimisi.index') }}">
+                                    <span class="sub-item">Divisi Ekplorasi Data</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('personalia.index') }}">
+                                    <span class="sub-item">Divisi Monitoring dan Evaluasi</span>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('tupoksi.index') }}">
+                                    <span class="sub-item">Divisi Pengembangan Dokumen</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../demo2/index.html">
+                                    <span class="sub-item">Divisi Akreditasi Internasional</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>

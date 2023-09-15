@@ -90,7 +90,7 @@
                                                     <span class="status"> {{ $data->status }}</span>
 
                                                 </td>
-                                                <td>
+                                                <td style="width: 15%">
                                                     <button class="btn text-warning btn-sm edit_inline"><i
                                                             class="fa fa-edit"></i></button>
                                                     <button class="btn text-black btnSave btn-sm" style="display: none"><i
@@ -166,13 +166,13 @@
                     @csrf
                     <div class="form-group col-md-12">
                         <label for="exampleInputEmail1"> Kategori</label>
-                        <select name="kategori_sub_kategori_id" id="kategori_sub_kategori_id" class="form-control mb-2">
+                        <select name="kategori_sub_kategori_id" id="kategori_sub_kategori_id_pengurus" class="form-control kategori_sub_kategori_id mb-2">
                             <option selected disabled>-- Kategori --</option>
                             @foreach ($kategoris as $item)
                                 <option value="{{ $item->id }}">{{ $item->sub_kategori }}</option>
                             @endforeach
                         </select>
-                        <div class="invalid-feedback" id="kategori_sub_kategori_id-error">
+                        <div class="invalid-feedback" id="kategori_sub_kategori_id_pengurus-error">
 
                         </div>
 
@@ -218,7 +218,7 @@
       <!-- End Modal -->
 
     <!-- Modal Data Pengurus  Personalia -->
-    <div class="modal fade" id="pengurus_personalia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade pengurus_personalia" id="pengurus_personalia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -233,13 +233,6 @@
                         <table id="multi-filter-select" class="display table  table-hover">
                             <thead>
                                 <tr>
-                                    @if ($pengurus_personalias->isEmpty())
-                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids"
-                                            class="ml-3 mt-2 checkbox-item" disabled></th>
-                                    @else
-                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
-                                                class="ml-3 mt-2 checkbox-item"></th>
-                                    @endif
                                     <th>Kategori</th>
                                     <th>Pengurus Personalia PJM</th>
                                     <th>Jabatan</th>
@@ -247,12 +240,9 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="add_new">
+                            <tbody id="add_new_pengurus">
                                 @foreach ($pengurus_personalias as $data)
                                     <tr id="data{{ $data->id }}">
-                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
-                                            value="{{ $data->id }}">
-                                        </td>
                                         <td>
                                             <span class="editSpan kategori_sub_kategori_id">{{ $data->kategori }} - {{ $data->sub_kategori }}</span>
                                             <select name="kategori_sub_kategori_id"  class="form-control editInput kategori_sub_kategori_id mb-2">
@@ -272,13 +262,12 @@
                                         </td>
                                         <td><img src="{{ asset('assets/image/pengurus_personalia') }}/{{ $data->foto }}"
                                             width="100"></td>
-                                        <td>
+                                        <td style="width: 20%">
                                             <button class="btn text-warning btn-sm edit_inline"><i
                                                     class="fa fa-edit"></i></button>
-                                            <button class="btn text-black btnSave btn-sm" style="display: none"><i
-                                                    class="fa fa-check"></i></button>
-                                            <button class="btn text-danger editCancel btn-sm" style="display: none"><i
-                                                    class="fa fa-times"></i></button>
+                                            <button class="btn text-danger btn-sm" onclick="PengurusDelete({{ $data->id }})"><i
+                                                class="fa fa-trash"></i></button>
+
                                         </td>
                                     </tr>
                                     @endforeach
@@ -315,19 +304,59 @@
                     processData: false,
                     success: function(response) {
                         if (response.status == 200) {
-                          var content = {};
-                            content.message = 'Data berhasil di tambah';
-                            content.icon = 'fa fa-check';
-			                content.title = 'Pesan Success';
-                            $.notify(content,{
-                                type: 'primary',
-                                placement: {
-                                    from: "top",
-                                    align: "right",
-                                },
-                                time: 1500,
-                                delay: 1000,
-			                });
+                            $('.modal').modal('hide');
+                            var content = {};
+                              content.message = 'Data berhasil di tambah';
+                              content.icon = 'fa fa-check';
+                              content.title = 'Pesan Success';
+                              $.notify(content,{
+                                  type: 'primary',
+                                  placement: {
+                                      from: "top",
+                                      align: "right",
+                                  },
+                                  time: 1500,
+                                  delay: 1000,
+                              });
+                              $('#add_new_pengurus').children().remove();
+                              var html = '';
+                              $.each(response.data, function(key, value) {
+                                      html += `<tr id="data${value.id}">
+                                        <td>
+                                            <span>${value.kategori} - ${value.sub_kategori}</span>
+
+                                            </td>
+                                        <td>
+                                            <span>${value.nama}</span>
+
+                                        </td>
+                                        <td>
+                                            <span class="jabatan">${value.jabatan}</span>
+
+                                        </td>
+                                        <td><img src="{{ asset('assets/image/pengurus_personalia') }}/${value.foto}"
+                                            width="100"></td>
+                                        <td style="width: 20%">
+                                            <button class="btn text-warning btn-sm edit_inline"><i
+                                                    class="fa fa-edit"></i></button>
+                                            <button class="btn text-danger btn-sm" onclick="PengurusDelete(${value.id})"><i
+                                                class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>`;
+                                 });
+                                 var select = $("#kategori_sub_kategori_id_pengurus");
+                                     select.find('option:not(:first-child)').remove();
+                                 $.each(response.select, function(key, value) {
+                                    $("#kategori_sub_kategori_id_pengurus").append($('<option>', {
+                                    value: value.id,
+                                    text: value.sub_kategori
+                                    }));
+                                 });
+
+                            $("#kategori_sub_kategori_id_pengurus").append(select);
+                            $('#add_new_pengurus').append(html);
+                            $("#add_form_pengurus")[0].reset();
+
                         }else{
                             var content = {};
 			                content.title = 'Pesan Error';
@@ -387,6 +416,46 @@
                                 time: 1500,
                                 delay: 1000,
 			                });
+                            $("#add_new").children().remove();
+                             $('.modal').modal('hide');
+                            var html = '';
+                            $.each(response.data, function(key, value) {
+                                      html += `<tr id="data${value.id}">
+                                                <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                                    value="${value.id}">
+                                                </td>
+                                                <td>
+                                                    <span class="editSpan kategori_sub_kategori_id">${value.kategori} - ${value.sub_kategori} </span>
+                                                    <select name="kategori_sub_kategori_id"  class="form-control editInput kategori_sub_kategori_id mb-2">
+                                                        @foreach ($kategori as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->kategori }} - {{ $item->sub_kategori }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    </td>
+                                                <td>
+                                                    <span class="editSpan deskripsi"> ${value.deskripsi} </span>
+                                                    <input type="text" class="editInput deskripsi" name="personalia"
+                                                        value="${value.deskripsi} ">
+                                                </td>
+                                                <td>
+                                                    <span class="status"> ${value.status}</span>
+
+                                                </td>
+                                                <td>
+                                                    <button class="btn text-warning btn-sm edit_inline"><i
+                                                            class="fa fa-edit"></i></button>
+                                                    <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                            class="fa fa-check"></i></button>
+                                                    <button class="btn text-danger editCancel btn-sm" style="display: none"><i
+                                                            class="fa fa-times"></i></button>
+                                                </td>
+                                            </tr>`;
+                                 });
+
+                                 $("#add_new").append(html);
+                                 $("#add_form")[0].reset();
+
+
                         }else{
                             var content = {};
 			                content.title = 'Pesan Error';
@@ -467,7 +536,7 @@
                         trObj.find(".editSpan.deskripsi").text(response.data.deskripsi);
                         trObj.find(".editInput.deskripsi").val(response.data.deskripsi);
                         trObj.find(".editSpan.kategori_sub_kategori_id").text(response.data.kategori_sub_kategori_id);
-                        // trObj.find(".editInput.kategori_sub_kategori_id").val(response.data.kategori_sub_kategori_id);
+
                         trObj.find(".editInput").hide();
                         trObj.find(".editSpan").show();
                         trObj.find(".btnSave").hide();
@@ -556,6 +625,8 @@
                                     time: 1500,
                                     delay: 1500,
                                 });
+
+
                                 $.each(response.data, function(key, value) {
                                     var datas = $('#data' + value);
                                     datas.remove();
@@ -585,5 +656,76 @@
                 }
             });
         });
+
+        function PengurusDelete(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: true
+            });
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "Do you want to delete ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('pengurus_personalia.delete') }}",
+                            type: "POST",
+                            data: {
+                                ids: id,
+                            },
+                            success: function(response) {
+                                var content = {};
+                                content.message = response.message;
+                                content.icon = 'fa fa-check';
+                                content.title = 'Pesan Success';
+                                $.notify(content, {
+                                    type: 'primary',
+                                    placement: {
+                                        from: "top",
+                                        align: "right",
+                                    },
+                                    time: 1500,
+                                    delay: 1500,
+                                });
+                                    var datas = $('#data' + id);
+                                    datas.remove();
+                                    var select = $("#kategori_sub_kategori_id_pengurus");
+                                     select.find('option:not(:first-child)').remove();
+                                $.each(response.select, function(key, value) {
+                                    $("#kategori_sub_kategori_id_pengurus").append($('<option>', {
+                                    value: value.id,
+                                    text: value.sub_kategori
+                                    }));
+                                 });
+                            }
+                        });
+                    }
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swal.fire(
+                        'Cancelled',
+                        'Data is not deleted',
+                        'error'
+                    )
+                }
+            });
+        }
+
+
     </script>
 @endsection

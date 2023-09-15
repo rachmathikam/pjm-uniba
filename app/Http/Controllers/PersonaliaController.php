@@ -30,7 +30,6 @@ class PersonaliaController extends Controller
                                         ->where('kategori','LIKE','%'.$datas.'%')
                                         ->select('kategori_sub_kategori.id','kategori.kategori','sub_kategori.sub_kategori')
                                         ->get();
-
          $kategoris = DB::table('kategori_sub_kategori')
                         // ->leftJoin('kategori_sub_kategori','kategori_sub_kategori.id', 'pengurus_personalias.kategori_sub_kategori_id')
                         ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
@@ -96,9 +95,16 @@ class PersonaliaController extends Controller
                 'deskripsi' => $request->personalia,
             ]);
 
+            $personalia = Personalia::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','personalias.kategori_sub_kategori_id')
+                                    ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
+                                    ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
+                                    ->select('personalias.*','sub_kategori.sub_kategori','kategori.kategori')
+                                    ->get();
+
            return response()->json([
               'status' => 200,
               'message' => 'data berhasil di tambahkan',
+              'data' => $personalia
            ]);
         }
     }
@@ -165,6 +171,7 @@ class PersonaliaController extends Controller
                     $data->update([
                         'deskripsi' => $request->personalia,
                     ]);
+
 
                    return response()->json([
                      'status' => 200,
