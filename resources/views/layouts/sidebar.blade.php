@@ -181,28 +181,28 @@
                             @endphp
 
                             <li>
-                                <a href="{{ route('profile.index') }}">
+                                <a href="{{ route('devisi_eksplorasi_data.index') }}">
                                     <span class="sub-item">Divisi Akreditasi</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('visimisi.index') }}">
+                                <a href="{{ route('devisi_eksplorasi_data.index') }}">
                                     <span class="sub-item">Divisi Ekplorasi Data</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('personalia.index') }}">
+                                <a href="{{ route('devisi_eksplorasi_data.index') }}">
                                     <span class="sub-item">Divisi Monitoring dan Evaluasi</span>
 
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('tupoksi.index') }}">
+                                <a href="{{ route('devisi_eksplorasi_data.index') }}">
                                     <span class="sub-item">Divisi Pengembangan Dokumen</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="../../demo2/index.html">
+                                <a href="{{ route('devisi_eksplorasi_data.index') }}">
                                     <span class="sub-item">Divisi Akreditasi Internasional</span>
                                 </a>
                             </li>

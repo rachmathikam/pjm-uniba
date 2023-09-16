@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DevisiEkplorasiData;
+use App\Models\PengurusDevisiEksplorasiData;
 use Illuminate\Http\Request;
 
-class DevisiEkplorasiDataController extends Controller
+class PengurusDevisiEksplorasiDataController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class DevisiEkplorasiDataController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DevisiEkplorasiData  $devisiEkplorasiData
+     * @param  \App\Models\PengurusDevisiEksplorasiData  $pengurusDevisiEksplorasiData
      * @return \Illuminate\Http\Response
      */
-    public function show(DevisiEkplorasiData $devisiEkplorasiData)
+    public function show(PengurusDevisiEksplorasiData $pengurusDevisiEksplorasiData)
     {
         //
     }
@@ -52,10 +52,10 @@ class DevisiEkplorasiDataController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DevisiEkplorasiData  $devisiEkplorasiData
+     * @param  \App\Models\PengurusDevisiEksplorasiData  $pengurusDevisiEksplorasiData
      * @return \Illuminate\Http\Response
      */
-    public function edit(DevisiEkplorasiData $devisiEkplorasiData)
+    public function edit(PengurusDevisiEksplorasiData $pengurusDevisiEksplorasiData)
     {
         //
     }
@@ -64,10 +64,10 @@ class DevisiEkplorasiDataController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DevisiEkplorasiData  $devisiEkplorasiData
+     * @param  \App\Models\PengurusDevisiEksplorasiData  $pengurusDevisiEksplorasiData
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DevisiEkplorasiData $devisiEkplorasiData)
+    public function update(Request $request, PengurusDevisiEksplorasiData $pengurusDevisiEksplorasiData)
     {
         //
     }
@@ -75,10 +75,10 @@ class DevisiEkplorasiDataController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DevisiEkplorasiData  $devisiEkplorasiData
+     * @param  \App\Models\PengurusDevisiEksplorasiData  $pengurusDevisiEksplorasiData
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DevisiEkplorasiData $devisiEkplorasiData)
+    public function destroy(PengurusDevisiEksplorasiData $pengurusDevisiEksplorasiData)
     {
         //
     }

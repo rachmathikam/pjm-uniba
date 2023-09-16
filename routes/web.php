@@ -9,6 +9,8 @@ use App\Http\Controllers\TupoksiController;
 use App\Http\Controllers\PersonaliaController;
 use App\Http\Controllers\KategoriSubKategoriController;
 use App\Http\Controllers\PengurusPersonaliaController;
+use App\Http\Controllers\DevisiEksplorasiDataController;
+
 
 
 
@@ -33,6 +35,14 @@ Route::get('/auth/login', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Master Kategori
+Route::resource('kategori',KategoriSubKategoriController::class);
+Route::post('/kategori-kategori', [App\Http\Controllers\KategoriSubKategoriController::class, 'kategori'])->name('kategori.kategori');
+Route::post('/kategori-sub', [App\Http\Controllers\KategoriSubKategoriController::class, 'sub'])->name('kategori.sub');
+Route::post('/kategori-master', [App\Http\Controllers\KategoriSubKategoriController::class, 'master'])->name('kategori.master');
+
 
 // Petugas PJM Uniba
 Route::resource('petugas',PetugasController::class);
@@ -75,10 +85,11 @@ Route::post('/pengurus_personalia-updated', [App\Http\Controllers\PengurusPerson
 Route::post('/pengurus_personalia-delete', [App\Http\Controllers\PengurusPersonaliaController::class, 'delete'])->name('pengurus_personalia.delete');
 Route::post('/pengurus_personalia-updated', [App\Http\Controllers\PengurusPersonaliaController::class, 'updated'])->name('pengurus_personalia.updated');
 
-// Master Kategori
-Route::resource('kategori',KategoriSubKategoriController::class);
-Route::post('/kategori-kategori', [App\Http\Controllers\KategoriSubKategoriController::class, 'kategori'])->name('kategori.kategori');
-Route::post('/kategori-sub', [App\Http\Controllers\KategoriSubKategoriController::class, 'sub'])->name('kategori.sub');
-Route::post('/kategori-master', [App\Http\Controllers\KategoriSubKategoriController::class, 'master'])->name('kategori.master');
+
+// divisi eksplorasi data
+Route::resource('devisi_eksplorasi_data',DevisiEksplorasiDataController::class);
+Route::post('/devisi_eksplorasi_data-updated', [App\Http\Controllers\DevisiEksplorasiDataController::class, 'updated'])->name('devisi_eksplorasi_data.updated');
+Route::post('/devisi_eksplorasi_data-delete', [App\Http\Controllers\DevisiEksplorasiDataController::class, 'delete'])->name('devisi_eksplorasi_data.delete');
+Route::post('/devisi_eksplorasi_data-updated', [App\Http\Controllers\DevisiEksplorasiDataController::class, 'updated'])->name('devisi_eksplorasi_data.updated');
 
 
