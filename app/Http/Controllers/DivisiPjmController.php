@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DevisiEksplorasiData;
+use App\Models\DivisiPjm;
 use App\Models\KategoriSubKategori;
+use App\Models\PengurusDivisiPjm;
 use Illuminate\Http\Request;
 use DB;
 use Validator;
 
-class DevisiEksplorasiDataController extends Controller
+class DivisiPjmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,26 +20,31 @@ class DevisiEksplorasiDataController extends Controller
     {
             $data = [
                 'company' => 'PJM - Uniba Madura',
-                'title' => 'Divisi Eksplorasi'
+                'title' => 'Divisi PJM Uniba Madura',
             ];
 
-            $datas = 'Divisi Eksplorasi Data';
+            $datas = 'Divisi';
             $kategori = KategoriSubKategori::leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                                             ->leftJoin('sub_kategori','sub_kategori.id', 'kategori_sub_kategori.sub_kategori_id')
                                             ->where('kategori','LIKE','%'.$datas.'%')
                                             ->select('kategori_sub_kategori.id','kategori.kategori','sub_kategori.sub_kategori')
                                             ->get();
-                                            // dd($kategori);
+
+            $pengurus_divisi = PengurusDivisiPjm::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','pengurus_divisi_pjms.kategori_sub_kategori_id')
+                                                        ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
+                                                        ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
+                                                        ->select('pengurus_divisi_pjms.*','sub_kategori.sub_kategori','kategori.kategori')
+                                                        ->get();
+                                                        // dd($pengurus_divisi);
 
 
-
-             $devisi_eksplorasi_data = DevisiEksplorasiData::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','devisi_eksplorasi_data.kategori_sub_kategori_id')
+             $divisi_pjm = DivisiPjm::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','divisi_pjms.kategori_sub_kategori_id')
                               ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                               ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
-                              ->select('devisi_eksplorasi_data.*','sub_kategori.sub_kategori','kategori.kategori')
+                              ->select('divisi_pjms.*','sub_kategori.sub_kategori','kategori.kategori')
                               ->get();
 
-            return view('pages.devisi_eksplorasi_data.index',compact('data','devisi_eksplorasi_data','kategori'));
+            return view('pages.divisi_pjm.index',compact('data','divisi_pjm','kategori','pengurus_divisi'));
     }
 
     /**
@@ -60,11 +66,11 @@ class DevisiEksplorasiDataController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'devisi_eksplorasi_data' => 'required',
+            'divisi_pjm' => 'required',
             'kategori_sub_kategori_id' => 'required',
 
         ],[
-            'devisi_eksplorasi_data.required' => 'Personalia harus diisi',
+            'divisi_pjm.required' => 'Personalia harus diisi',
             'kategori_sub_kategori_id.required' => 'Master Kategori harus diisi'
         ]);
 
@@ -75,21 +81,22 @@ class DevisiEksplorasiDataController extends Controller
                 'data' =>  $validator->errors(),
             ]);
         }else{
-            DevisiEksplorasiData::create([
+            DivisiPjm::create([
                 'kategori_sub_kategori_id' => $request->kategori_sub_kategori_id,
-                'deskripsi' => $request->devisi_eksplorasi_data,
+                'deskripsi' => $request->divisi_pjm,
             ]);
 
-            $devisi_eksplorasi_data = DevisiEksplorasiData::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','devisi_eksplorasi_data.kategori_sub_kategori_id')
-                                    ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
-                                    ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
-                                    ->select('devisi_eksplorasi_data.*','sub_kategori.sub_kategori','kategori.kategori')
-                                    ->get();
+            $divisi_pjm = DivisiPjm::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','divisi_pjms.kategori_sub_kategori_id')
+                                                        ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
+                                                        ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
+                                                        ->select('divisi_pjms.*','sub_kategori.sub_kategori','kategori.kategori')
+                                                        ->get();
+
 
            return response()->json([
               'status' => 200,
               'message' => 'data berhasil di tambahkan',
-              'data' => $devisi_eksplorasi_data
+              'data' => $divisi_pjm
            ]);
         }
     }
@@ -97,10 +104,10 @@ class DevisiEksplorasiDataController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\DevisiEksplorasiData  $devisiEksplorasiData
+     * @param  \App\Models\DivisiPjm  $DivisiPjm
      * @return \Illuminate\Http\Response
      */
-    public function show(DevisiEksplorasiData $devisiEksplorasiData)
+    public function show(DivisiPjm $DivisiPjm)
     {
         //
     }
@@ -108,10 +115,10 @@ class DevisiEksplorasiDataController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\DevisiEksplorasiData  $devisiEksplorasiData
+     * @param  \App\Models\DivisiPjm  $DivisiPjm
      * @return \Illuminate\Http\Response
      */
-    public function edit(DevisiEksplorasiData $devisiEksplorasiData)
+    public function edit(DivisiPjm $DivisiPjm)
     {
         //
     }
@@ -120,16 +127,16 @@ class DevisiEksplorasiDataController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DevisiEksplorasiData  $devisiEksplorasiData
+     * @param  \App\Models\DivisiPjm  $DivisiPjm
      * @return \Illuminate\Http\Response
      */
-    public function updated(Request $request, DevisiEksplorasiData $devisiEksplorasiData)
+    public function updated(Request $request, DivisiPjm $DivisiPjm)
     {
         $validator = Validator::make($request->all(), [
-            'devisi_eksplorasi_data_edit' =>'required',
+            'divisi_pjm_edit' =>'required',
 
         ],[
-            'devisi_eksplorasi_data_edit.required' => 'Devisi Eksplorasi Data harus di isi'
+            'divisi_pjm_edit.required' => 'Devisi Eksplorasi Data harus di isi'
         ]);
 
         $id = explode('data',$request->id);
@@ -143,18 +150,19 @@ class DevisiEksplorasiDataController extends Controller
                 ]);
 
             }else{
-                $data = DevisiEksplorasiData::findOrFail($id[1]);
+                $data = DivisiPjm::findOrFail($id[1]);
                 $kategori = KategoriSubKategori::leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                                                 ->leftJoin('sub_kategori','sub_kategori.id', 'kategori_sub_kategori.sub_kategori_id')
                                                 ->where('kategori_sub_kategori.id','LIKE','%'.$request->kategori_sub_kategori_id.'%')
                                                 ->select('kategori_sub_kategori.id','kategori.kategori','sub_kategori.sub_kategori')->first();
                 $datas = [
                             'kategori_sub_kategori_id' => $kategori->kategori.' '.'-'.' '.$kategori->sub_kategori,
-                            'deskripsi' => $request->devisi_eksplorasi_data_edit
+                            'deskripsi' => $request->divisi_pjm_edit
                 ];
 
                 $data->update([
-                    'deskripsi' => $request->devisi_eksplorasi_data_edit,
+                    'kategori_sub_kategori_id' => $request->kategori_sub_kategori_id,
+                    'deskripsi' => $request->divisi_pjm_edit,
                 ]);
 
 
@@ -169,11 +177,34 @@ class DevisiEksplorasiDataController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\DevisiEksplorasiData  $devisiEksplorasiData
+     * @param  \App\Models\DivisiPjm  $DivisiPjm
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DevisiEksplorasiData $devisiEksplorasiData)
+    public function delete(Request $request)
     {
-        //
+        foreach ($request->ids as $id) {
+            DivisiPjm::destroy($id);
+        }
+
+        $personalia = DivisiPjm::all();
+        $select = '';
+        if($personalia->isEmpty()){
+           $select .= 'disabled';
+        }else{
+             $select .= 'ada';
+        }
+        // dd($select);
+
+        return response()->json([
+          'status' => 200,
+          'message' => 'data berhasil di hapus',
+          'data' => $request->ids,
+          'select' => $select
+         ]);
+        return response()->json([
+          'status' => 200,
+          'message' => 'data berhasil di hapus',
+          'data' => $request->ids
+        ]);
     }
 }

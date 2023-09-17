@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengurusDevisiEksplorasiDataTable extends Migration
+class CreateDivisiPjmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreatePengurusDevisiEksplorasiDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengurus_devisi_eksplorasi_data', function (Blueprint $table) {
+        Schema::create('divisi_pjms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kategori_sub_kategori_id')->references('id')->on('kategori_sub_kategori')->onDelete('cascade');
-            $table->string('nama');
-            $table->string('jabatan');
-            $table->string('foto');
+            $table->enum('status',['publish','non_publish'])->default('non_publish');
+            $table->string('deskripsi');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreatePengurusDevisiEksplorasiDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengurus_devisi_eksplorasi_data');
+        Schema::dropIfExists('divisi_pjms');
     }
 }

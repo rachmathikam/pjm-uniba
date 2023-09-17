@@ -39,7 +39,6 @@ class PersonaliaController extends Controller
                         ->whereNotIn('kategori_sub_kategori.id',DB::table('pengurus_personalias')
                         ->select('kategori_sub_kategori_id'))
                         ->get();
-                        // dd($kategori);
 
         $personalia = Personalia::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','personalias.kategori_sub_kategori_id')
                           ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
@@ -52,6 +51,8 @@ class PersonaliaController extends Controller
                                 ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
                                 ->select('pengurus_personalias.*','sub_kategori.sub_kategori','kategori.kategori')
                                 ->get();
+         
+
 
         return view('pages.personalia.index',compact('data','personalia','kategori','pengurus_personalias','kategoris'));
     }

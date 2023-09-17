@@ -9,7 +9,8 @@ use App\Http\Controllers\TupoksiController;
 use App\Http\Controllers\PersonaliaController;
 use App\Http\Controllers\KategoriSubKategoriController;
 use App\Http\Controllers\PengurusPersonaliaController;
-use App\Http\Controllers\DevisiEksplorasiDataController;
+use App\Http\Controllers\DivisiPjmController;
+use App\Http\Controllers\PengurusDivisiPjmController;
 
 
 
@@ -86,10 +87,14 @@ Route::post('/pengurus_personalia-delete', [App\Http\Controllers\PengurusPersona
 Route::post('/pengurus_personalia-updated', [App\Http\Controllers\PengurusPersonaliaController::class, 'updated'])->name('pengurus_personalia.updated');
 
 
-// divisi eksplorasi data
-Route::resource('devisi_eksplorasi_data',DevisiEksplorasiDataController::class);
-Route::post('/devisi_eksplorasi_data-updated', [App\Http\Controllers\DevisiEksplorasiDataController::class, 'updated'])->name('devisi_eksplorasi_data.updated');
-Route::post('/devisi_eksplorasi_data-delete', [App\Http\Controllers\DevisiEksplorasiDataController::class, 'delete'])->name('devisi_eksplorasi_data.delete');
-Route::post('/devisi_eksplorasi_data-updated', [App\Http\Controllers\DevisiEksplorasiDataController::class, 'updated'])->name('devisi_eksplorasi_data.updated');
+// divisi pjm
+Route::resource('divisi_pjm',DivisiPjmController::class);
+Route::post('/divisi_pjm-updated', [App\Http\Controllers\DivisiPjmController::class, 'updated'])->name('divisi_pjm.updated');
+Route::post('/divisi_pjm-delete', [App\Http\Controllers\DivisiPjmController::class, 'delete'])->name('divisi_pjm.delete');
+Route::post('/divisi_pjm-updated', [App\Http\Controllers\DivisiPjmController::class, 'updated'])->name('divisi_pjm.updated');
 
-
+//pengurus divisi
+Route::resource('pengurus_divisi_pjm',PengurusDivisiPjmController::class);
+Route::post('/pengurus_divisi_pjm-updated', [App\Http\Controllers\PengurusDivisiPjmController::class, 'updated'])->name('pengurus_divisi_pjm.updated');
+Route::post('/pengurus_divisi_pjm-delete', [App\Http\Controllers\PengurusDivisiPjmController::class, 'delete'])->name('pengurus_divisi_pjm.delete');
+Route::post('/pengurus_divisi_pjm-updated', [App\Http\Controllers\PengurusDivisiPjmController::class, 'updated'])->name('pengurus_divisi_pjm.updated');

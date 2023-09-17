@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PengurusPersonalia;
+use App\Models\PengurusDivisiPjm;
 use App\Models\KategoriSubKategori;
 use App\Models\Kategori;
 use App\Models\SubKategori;
@@ -10,7 +10,7 @@ use Validator;
 use DB;
 use Illuminate\Http\Request;
 
-class PengurusPersonaliaController extends Controller
+class PengurusDivisiPjmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class PengurusPersonaliaController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -43,7 +43,7 @@ class PengurusPersonaliaController extends Controller
         // dd($request->all());
         $validate = Validator::make($request->all(),[
             'nama_pengurus' => 'required',
-            'kategori_sub_kategori_id' => 'required|unique:pengurus_personalias',
+            'kategori_sub_kategori_id' => 'required',
             'jabatan' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
 
@@ -71,7 +71,7 @@ class PengurusPersonaliaController extends Controller
                 try {
                     $gambar = time() . '_' . $file_gambar->getClientOriginalName();
 
-                   PengurusPersonalia::create([
+                   PengurusDivisiPjm::create([
                         'kategori_sub_kategori_id' => $request->kategori_sub_kategori_id,
                         'nama' => $request->nama_pengurus,
                         'jabatan' => $request->jabatan,
@@ -80,19 +80,19 @@ class PengurusPersonaliaController extends Controller
 
                     $file_gambar->move(public_path('assets/image/pengurus_divisi'), $gambar);
 
-                    $data = PengurusPersonalia::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','pengurus_personalias.kategori_sub_kategori_id')
+                    $data = PengurusDivisiPjm::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','pengurus_divisi_pjm.kategori_sub_kategori_id')
                                                 ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                                                 ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
-                                                ->select('pengurus_personalias.*','sub_kategori.sub_kategori','kategori.kategori')
+                                                ->select('pengurus_divisi_pjm.*','sub_kategori.sub_kategori','kategori.kategori')
                                                 ->get();
 
-                    $datas = 'personalia';
+                    $datas = 'Divisi Eksplorasi Data';
                     $kategoris = DB::table('kategori_sub_kategori')
                                     ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                                     ->leftJoin('sub_kategori','sub_kategori.id', 'kategori_sub_kategori.sub_kategori_id')
                                     ->select('kategori_sub_kategori.id','sub_kategori.sub_kategori')
                                     ->where('kategori','LIKE','%'.$datas.'%')
-                                    ->whereNotIn('kategori_sub_kategori.id',DB::table('pengurus_personalias')
+                                    ->whereNotIn('kategori_sub_kategori.id',DB::table('divisi_pjm')
                                     ->select('kategori_sub_kategori_id'))
                                     ->get();
 
@@ -113,15 +113,16 @@ class PengurusPersonaliaController extends Controller
 
             }
         }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PengurusPersonalia  $pengurusPersonalia
+     * @param  \App\Models\PengurusDivisiPjm  $pengurusDivisiPjm
      * @return \Illuminate\Http\Response
      */
-    public function show(PengurusPersonalia $pengurusPersonalia)
+    public function show()
     {
         //
     }
@@ -129,10 +130,10 @@ class PengurusPersonaliaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PengurusPersonalia  $pengurusPersonalia
+     * @param  \App\Models\PengurusDivisiPjm  $pengurusDivisiPjm
      * @return \Illuminate\Http\Response
      */
-    public function edit(PengurusPersonalia $pengurusPersonalia)
+    public function edit()
     {
         //
     }
@@ -141,10 +142,10 @@ class PengurusPersonaliaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PengurusPersonalia  $pengurusPersonalia
+     * @param  \App\Models\PengurusDivisiPjm  $pengurusDivisiPjm
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PengurusPersonalia $pengurusPersonalia)
+    public function update(Request $request)
     {
         //
     }
@@ -152,29 +153,17 @@ class PengurusPersonaliaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PengurusPersonalia  $pengurusPersonalia
+     * @param  \App\Models\PengurusDivisiPjm  $pengurusDivisiPjm
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request)
     {
-        $data = PengurusPersonalia::findOrFail($request->ids);
-        $data->delete();
-
-        $datas = 'personalia';
-        $kategoris = DB::table('kategori_sub_kategori')
-                        ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
-                        ->leftJoin('sub_kategori','sub_kategori.id', 'kategori_sub_kategori.sub_kategori_id')
-                        ->select('kategori_sub_kategori.id','sub_kategori.sub_kategori')
-                        ->where('kategori','LIKE','%'.$datas.'%')
-                        ->whereNotIn('kategori_sub_kategori.id',DB::table('pengurus_personalias')
-                        ->select('kategori_sub_kategori_id'))
-                        ->get();
+          $data = PengurusDevisiPjm::findOrFail($request->ids);
+          $data->delete();
 
         return response()->json([
             'status' => 200,
             'message' => 'data berhasil di hapus',
-             'select' => $kategoris
         ]);
-
     }
 }

@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PengurusDevisiEksplorasiData extends Model
+class DivisiPjm extends Model
 {
     use HasFactory;
-    protected $table = 'pengurus_devisi_eksplorasi_data';
     protected $guarded = [];
-    
+    protected $table = 'divisi_pjms';
 }

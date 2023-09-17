@@ -15,6 +15,11 @@
             opacity: 0.65;
             cursor: not-allowed;
         }
+
+        #select_all_ids[disabled] {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
     </style>
     <div class="content">
         <div class="page-inner">
@@ -40,15 +45,15 @@
                         <div class="card-header">
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#exampleModal">
-                                + Tambah Personalia PJM
+                                + Tambah Devisi Eksplorasi Data PJM
                             </button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#tambah_pengurus">
-                                + Tambah Pengurus Personalia PJM
+                                + Tambah Pengurus Devisi Eksplorasi Data PJM
                             </button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#pengurus_personalia">
-                                + Data Pengurus Personalia PJM
+                                + Data Pengurus Devisi Eksplorasi Data PJM
                             </button>
                             <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Hapus
                                 Terpilih</button>
@@ -58,7 +63,7 @@
                                 <table id="multi-filter-select" class="display table  table-hover">
                                     <thead>
                                         <tr>
-                                            @if ($personalia->isEmpty())
+                                            @if ($divisi_pjm->isEmpty())
                                                 <th style="width: 10%"><input type="checkbox" id="select_all_ids"
                                                         class="ml-3 mt-2 checkbox-item" disabled></th>
                                             @else
@@ -72,7 +77,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add_new">
-                                        @foreach ($personalia as $data)
+                                        @foreach ($divisi_pjm as $data)
                                             <tr id="data{{ $data->id }}">
                                                 <td><input type="checkbox" name="ids"
                                                         class="checkbox_ids ml-3 checkbox-item" value="{{ $data->id }}">
@@ -90,8 +95,12 @@
                                                 </td>
                                                 <td>
                                                     <span class="editSpan deskripsi"> {{ $data->deskripsi }}</span>
-                                                    <input type="text" class="editInput deskripsi" name="personalia"
+                                                    <input type="text" class="editInput deskripsi form-control"
+                                                        id="divisi_pjm_edit" name="divisi_pjm_edit"
                                                         value="{{ $data->deskripsi }}">
+                                                    <div class="invalid-feedback" id="divisi_pjm_edit-error">
+
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <span class="status"> {{ $data->status }}</span>
@@ -144,9 +153,9 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="personalia">Isi</label>
-                            <textarea name="personalia" id="personalia" rows="3" class="form-control"></textarea>
-                            <div class="invalid-feedback" id="personalia-error">
+                            <label for="divisi_pjm">Isi</label>
+                            <textarea name="divisi_pjm" id="divisi_pjm" rows="3" class="form-control"></textarea>
+                            <div class="invalid-feedback" id="divisi_pjm-error">
 
                             </div>
                         </div>
@@ -179,7 +188,7 @@
                             <select name="kategori_sub_kategori_id" id="kategori_sub_kategori_id_pengurus"
                                 class="form-control kategori_sub_kategori_id mb-2">
                                 <option selected disabled>-- Kategori --</option>
-                                @foreach ($kategoris as $item)
+                                @foreach ($kategori as $item)
                                     <option value="{{ $item->id }}">{{ $item->sub_kategori }}</option>
                                 @endforeach
                             </select>
@@ -234,7 +243,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5>Data Pengurs Personalia</h5>
+                    <h5>Data Pengurus Personalia</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -253,7 +262,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="add_new_pengurus">
-                                    @foreach ($pengurus_personalias as $data)
+                                    @foreach ($pengurus_divisi as $data)
                                         <tr id="data{{ $data->id }}">
                                             <td>
                                                 <span class="editSpan kategori_sub_kategori_id">{{ $data->kategori }} -
@@ -297,6 +306,7 @@
     </div>
     <!-- End Modal -->
 
+
     <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="../../assets/js/plugin/datatables/datatables.min.js"></script>
     <script src="../../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
@@ -312,7 +322,7 @@
             e.preventDefault();
             var data = new FormData(this);
             $.ajax({
-                url: "{{ route('pengurus_personalia.store') }}",
+                url: "{{ route('pengurus_divisi_pjm.store') }}",
                 data: data,
                 type: "POST",
                 contentType: false,
@@ -396,22 +406,13 @@
             });
         });
 
-        $("#add_new").on('click', '.edit_inline', function() {
-            var btn = $(this);
-            btn.closest("tr").find(".edit_inline").hide();
 
-            $(this).closest("tr").find(".editSpan").hide();
-            $(this).closest("tr").find(".editInput").show();
-            $(this).closest("tr").find(".editCancel").show();
-            $(this).closest("tr").find(".edit_inline").hide();
-            $(this).closest("tr").find(".btnSave").show();
-        });
 
         $("#add_form").on('submit', function(e) {
             e.preventDefault();
             var data = new FormData(this);
             $.ajax({
-                url: "{{ route('personalia.store') }}",
+                url: "{{ route('divisi_pjm.store') }}",
                 data: data,
                 type: "POST",
                 contentType: false,
@@ -450,7 +451,7 @@
                                                     </td>
                                                 <td>
                                                     <span class="editSpan deskripsi"> ${value.deskripsi} </span>
-                                                    <input type="text" class="editInput deskripsi" name="personalia"
+                                                    <input type="text" class="editInput deskripsi" name="divisi_pjm_edit"
                                                         value="${value.deskripsi} ">
                                                 </td>
                                                 <td>
@@ -527,7 +528,7 @@
             var inputData = $(this).closest("tr").find(".editInput").serialize();
             $.ajax({
                 type: "POST",
-                url: "{{ route('personalia.updated') }}",
+                url: "{{ route('divisi_pjm.updated') }}",
                 dataType: "json",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -560,13 +561,37 @@
                         trObj.find(".editCancel").hide();
                         trObj.find(".edit_inline").show();
 
+                    } else {
+                        var content = {};
+                        content.title = 'Pesan Error';
+                        content.message = 'Data gagal di tambah';
+                        content.icon = 'fa fa-times';
+                        $.notify(content, {
+                            type: 'danger',
+                            placement: {
+                                from: "top",
+                                align: "right",
+                            },
+                            delay: 1000,
+                            timer: 1000,
+                        });
+                        $.each(response.data, function(field, errors) {
+                            $('#' + field).addClass('is-invalid');
+                            $('#' + field + '-error').text(errors[0]).wrapInner("<strong />");
+
+                        });
                     }
                 }
             });
         });
 
-        $('#personalia').on('click', function() {
-            $('#personalia').removeClass('is-valid is-invalid');
+
+        $('.editCancel').on('click', function() {
+            $('#divisi_pjm_edit').removeClass('is-valid is-invalid');
+        });
+
+        $('#divisi_pjm_edit').on('click', function() {
+            $('#divisi_pjm_edit').removeClass('is-valid is-invalid');
         });
 
         $('#kategori_sub_kategori_id').on('change', function() {
@@ -623,7 +648,7 @@
                 if (result.value) {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('personalia.delete') }}",
+                            url: "{{ route('divisi_pjm.delete') }}",
                             type: "POST",
                             data: {
                                 ids: all_ids,
@@ -699,7 +724,7 @@
                 if (result.value) {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('pengurus_personalia.delete') }}",
+                            url: "{{ route('pengurus_divisi_pjm.delete') }}",
                             type: "POST",
                             data: {
                                 ids: id,
@@ -724,10 +749,10 @@
                                 select.find('option:not(:first-child)').remove();
                                 $.each(response.select, function(key, value) {
                                     $("#kategori_sub_kategori_id_pengurus").append($(
-                                    '<option>', {
-                                        value: value.id,
-                                        text: value.sub_kategori
-                                    }));
+                                        '<option>', {
+                                            value: value.id,
+                                            text: value.sub_kategori
+                                        }));
                                 });
                             }
                         });
