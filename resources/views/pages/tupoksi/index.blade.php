@@ -10,6 +10,12 @@
         height: 45px;
     }
 
+    .status{
+            width: 100px;
+            border: none;
+            height: 50px;
+            border-radius: 5px;
+        }
 
     .deleteData[disabled] {
         opacity: 0.65;
@@ -62,37 +68,51 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add_new">
-                                        @foreach ($tupoksi as $data)
-                                            <tr id="data{{ $data->id }}">
-                                                <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
-                                                    value="{{ $data->id }}">
-                                                </td>
-                                                <td>
-                                                    <span class="editSpan kategori_sub_kategori_id">{{ $data->kategori }} - {{ $data->sub_kategori }}</span>
-                                                    <select name="kategori_sub_kategori_id"  class="form-control editInput kategori_sub_kategori_id mb-2">
-                                                        @foreach ($kategori as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->kategori }} - {{ $item->sub_kategori }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    </td>
-                                                <td>
-                                                    <span class="editSpan deskripsi"> {{ $data->deskripsi }}</span>
-                                                    <input type="text" class="editInput deskripsi" name="tupoksi"
-                                                        value="{{ $data->deskripsi }}">
-                                                </td>
-                                                <td>
-                                                    <span class="status"> {{ $data->status }}</span>
+                                        @foreach ($lol as $data)
+                                        <tr id="data{{ $data['id'] }}">
+                                            <td><input type="checkbox" name="ids"
+                                                    class="checkbox_ids ml-3 checkbox-item" value="{{ $data['id'] }}">
+                                            </td>
+                                            <td>
+                                                <span class="editSpan kategori_sub_kategori_id">{{$data['kategori'] }} -
+                                                    {{$data['sub_kategori'] }}</span>
+                                                <select name="kategori_sub_kategori_id"
+                                                    class="form-control editInput kategori_sub_kategori_id mb-2">
+                                                    @foreach ($kategori as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->kategori }} -
+                                                            {{ $item->sub_kategori }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <span class="editSpan deskripsi"> {{ $data['deskripsi'] }}</span>
+                                                <input type="text" class="editInput deskripsi form-control" onclick="test({{ $data['id'] }})"
+                                                    id="divisi_pjm_edit{{ $data['id'] }}" name="divisi_pjm_edit"
+                                                    value="{{ $data['deskripsi'] }}">
+                                                <div class="invalid-feedback" id="divisi_pjm_edit-error">
 
-                                                </td>
-                                                <td>
-                                                    <button class="btn text-warning btn-sm edit_inline"><i
-                                                            class="fa fa-edit"></i></button>
-                                                    <button class="btn text-black btnSave btn-sm" style="display: none"><i
-                                                            class="fa fa-check"></i></button>
-                                                    <button class="btn text-danger editCancel btn-sm" style="display: none"><i
-                                                            class="fa fa-times"></i></button>
-                                                </td>
-                                            </tr>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <select name="status" id="status{{ $data['id'] }}" class="status text-center" onchange="status({{ $data['id'] }})" style="background-color: {{ $data['color'] }}; color:white;">
+                                                    @if($data['status'] == 'publish')
+                                                        <option selected value="publish">Publish</option>
+                                                        <option value="non_publish">No Publish</option>
+                                                    @else
+                                                    <option  value="publish">Publish</option>
+                                                    <option selected value="non_publish">No Publish</option>
+                                                    @endif
+                                                </select>
+                                            </td>
+                                            <td style="width: 15%">
+                                                <button class="btn text-warning btn-sm edit_inline"><i
+                                                        class="fa fa-edit"></i></button>
+                                                <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                        class="fa fa-check"></i></button>
+                                                <button class="btn text-danger editCancel btn-sm" onclick="editCancel({{ $data['id'] }})"
+                                                    style="display: none"><i class="fa fa-times"></i></button>
+                                            </td>
+                                        </tr>
                                             @endforeach
                                     </tbody>
                                 </table>
@@ -381,5 +401,39 @@
                 }
             });
         });
+
+        function status(isi){
+        var inputData = $('#status'+isi).val();
+            console.log(inputData);
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url : "{{ route('tupoksi.status') }}",
+            dataType: "json",
+            data:'statusAksi=edit&id='+isi+'&'+'status='+inputData,
+            success:function(response){
+            if(response.status == 200){
+                var content = {};
+                        content.message = 'Data berhasil di update';
+                        content.icon = 'fa fa-check';
+                        content.title = 'Pesan Success';
+                        $.notify(content, {
+                            type: 'primary',
+                            placement: {
+                                from: "top",
+                                align: "right",
+                            },
+                            time: 1500,
+                            delay: 1000,
+                        });
+                    $("#status"+isi).css({ 'background-color' : '', 'opacity' : '' });
+                    $("#status"+isi).css({ 'background-color' : response.color });
+               }
+            }
+        });
+
+    }
     </script>
 @endsection

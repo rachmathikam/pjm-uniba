@@ -73,6 +73,7 @@ Route::resource('tupoksi',TupoksiController::class);
 Route::post('/tupoksi-updated', [App\Http\Controllers\TupoksiController::class, 'updated'])->name('tupoksi.updated');
 Route::post('/tupoksi-delete', [App\Http\Controllers\TupoksiController::class, 'delete'])->name('tupoksi.delete');
 Route::post('/tupoksi-updated', [App\Http\Controllers\TupoksiController::class, 'updated'])->name('tupoksi.updated');
+Route::post('/tupoksi-status', [App\Http\Controllers\TupoksiController::class, 'status'])->name('tupoksi.status');
 
 //personalia
 Route::resource('personalia',PersonaliaController::class);
@@ -92,9 +93,13 @@ Route::resource('divisi_pjm',DivisiPjmController::class);
 Route::post('/divisi_pjm-updated', [App\Http\Controllers\DivisiPjmController::class, 'updated'])->name('divisi_pjm.updated');
 Route::post('/divisi_pjm-delete', [App\Http\Controllers\DivisiPjmController::class, 'delete'])->name('divisi_pjm.delete');
 Route::post('/divisi_pjm-updated', [App\Http\Controllers\DivisiPjmController::class, 'updated'])->name('divisi_pjm.updated');
+Route::post('/divisi_pjm-filter', [App\Http\Controllers\DivisiPjmController::class, 'filter'])->name('divisi_pjm.filter');
+Route::post('/divisi_pjm-status', [App\Http\Controllers\DivisiPjmController::class, 'status'])->name('divisi_pjm.status');
 
 //pengurus divisi
 Route::resource('pengurus_divisi_pjm',PengurusDivisiPjmController::class);
 Route::post('/pengurus_divisi_pjm-updated', [App\Http\Controllers\PengurusDivisiPjmController::class, 'updated'])->name('pengurus_divisi_pjm.updated');
 Route::post('/pengurus_divisi_pjm-delete', [App\Http\Controllers\PengurusDivisiPjmController::class, 'delete'])->name('pengurus_divisi_pjm.delete');
 Route::post('/pengurus_divisi_pjm-updated', [App\Http\Controllers\PengurusDivisiPjmController::class, 'updated'])->name('pengurus_divisi_pjm.updated');
+Route::post('/pengurus_divisi_pjm-filter', [App\Http\Controllers\PengurusDivisiPjmController::class, 'filterPengurus'])->name('pengurus_divisi_pjm.filter');
+

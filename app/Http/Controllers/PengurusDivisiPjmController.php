@@ -27,9 +27,31 @@ class PengurusDivisiPjmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function filterPengurus(Request $request)
     {
-        //
+        $pengurus_divisi = PengurusDivisiPjm::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','pengurus_divisi_pjms.kategori_sub_kategori_id')
+                                            ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
+                                            ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
+                                            ->where('kategori_sub_kategori_id',$request->data)
+                                            ->select('pengurus_divisi_pjms.*','sub_kategori.sub_kategori','kategori.kategori')
+                                            ->get();
+        if($pengurus_divisi->IsEmpty()){
+            $pengurus_divisi .= '<tr class="odd"><td valign="top" colspan="5" class="dataTables_empty">No data available in table</td></tr>';
+            return response()->json([
+                'status' => 400,
+                'message' => 'data berhasil di tambahkan',
+                'data' => $pengurus_divisi
+            ]);
+
+        }else{
+            return response()->json([
+                'status' => 200,
+                'message' => 'data berhasil di tambahkan',
+                'data' => $pengurus_divisi
+            ]);
+        }
+
+
     }
 
     /**
@@ -40,7 +62,6 @@ class PengurusDivisiPjmController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validate = Validator::make($request->all(),[
             'nama_pengurus' => 'required',
             'kategori_sub_kategori_id' => 'required',
@@ -71,7 +92,7 @@ class PengurusDivisiPjmController extends Controller
                 try {
                     $gambar = time() . '_' . $file_gambar->getClientOriginalName();
 
-                   PengurusDivisiPjm::create([
+                    PengurusDivisiPjm::create([
                         'kategori_sub_kategori_id' => $request->kategori_sub_kategori_id,
                         'nama' => $request->nama_pengurus,
                         'jabatan' => $request->jabatan,
@@ -80,20 +101,18 @@ class PengurusDivisiPjmController extends Controller
 
                     $file_gambar->move(public_path('assets/image/pengurus_divisi'), $gambar);
 
-                    $data = PengurusDivisiPjm::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','pengurus_divisi_pjm.kategori_sub_kategori_id')
+                    $data = PengurusDivisiPjm::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','pengurus_divisi_pjms.kategori_sub_kategori_id')
                                                 ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                                                 ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
-                                                ->select('pengurus_divisi_pjm.*','sub_kategori.sub_kategori','kategori.kategori')
+                                                ->select('pengurus_divisi_pjms.*','sub_kategori.sub_kategori','kategori.kategori')
                                                 ->get();
 
-                    $datas = 'Divisi Eksplorasi Data';
+                    $datas = 'Divisi';
                     $kategoris = DB::table('kategori_sub_kategori')
                                     ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                                     ->leftJoin('sub_kategori','sub_kategori.id', 'kategori_sub_kategori.sub_kategori_id')
                                     ->select('kategori_sub_kategori.id','sub_kategori.sub_kategori')
                                     ->where('kategori','LIKE','%'.$datas.'%')
-                                    ->whereNotIn('kategori_sub_kategori.id',DB::table('divisi_pjm')
-                                    ->select('kategori_sub_kategori_id'))
                                     ->get();
 
                 DB::commit();
@@ -158,7 +177,7 @@ class PengurusDivisiPjmController extends Controller
      */
     public function delete(Request $request)
     {
-          $data = PengurusDevisiPjm::findOrFail($request->ids);
+          $data = PengurusDivisiPjm::findOrFail($request->ids);
           $data->delete();
 
         return response()->json([

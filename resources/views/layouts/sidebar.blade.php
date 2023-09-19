@@ -173,7 +173,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('divisi_pjm.index') }}">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-university"></i>
                         <p>Divisi PJM</p>
                     </a>
                 </li>

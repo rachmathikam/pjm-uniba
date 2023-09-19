@@ -32,11 +32,33 @@ class TupoksiController extends Controller
                           ->select('tupoksis.*','sub_kategori.sub_kategori','kategori.kategori')
                           ->get();
 
-       
 
 
+        $lol = [];
+        foreach ($tupoksi as  $value) {
+                $color = '';
+                if($value->status == 'publish') {
+                    $color = '#28a745'; // hijau
+                }else{
+                        $color = '#f00'; // kuning
+                }
+                $array = [
+                    'id' => $value->id,
+                    'color' => $color,
+                    'kategori' => $value->kategori,
+                    'sub_kategori' => $value->sub_kategori,
+                    'deskripsi' => $value->deskripsi,
+                    'company' => 'PJM - Uniba Madura',
+                    'title' => 'Tupoksi PJM',
+                    'status' => $value->status,
 
-        return view('pages.tupoksi.index', compact('tupoksi', 'data','kategori'));
+                ];
+
+                    array_push($lol,$array);
+                    // dd($lol);
+        }
+
+        return view('pages.tupoksi.index', compact('tupoksi', 'data','kategori','lol'));
     }
 
     /**
@@ -58,11 +80,11 @@ class TupoksiController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'deskripsi' => 'required',
+            'tupoksi' => 'required',
             'kategori_sub_kategori_id' => 'required',
 
         ],[
-            'deskripsi.required' => 'Deskripsi harus diisi',
+            'tupoksi.required' => 'Deskripsi harus diisi',
             'kategori_sub_kategori_id.required' => 'Master Kategori harus diisi'
         ]);
 
@@ -78,23 +100,41 @@ class TupoksiController extends Controller
                 'deskripsi' => $request->tupoksi,
             ]);
 
+            $data = Tupoksi::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','tupoksis.kategori_sub_kategori_id')
+                            ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
+                            ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
+                            ->select('tupoksis.*','sub_kategori.sub_kategori','kategori.kategori')
+                            ->get();
+
            return response()->json([
               'status' => 200,
               'message' => 'data berhasil di tambahkan',
+              'data' => $data,
            ]);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tupoksi  $tupoksi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tupoksi $tupoksi)
-    {
-        //
-    }
+
+    public function status(Request $request){
+        $data =  Tupoksi::findOrFail($request->id);
+
+        $data->update([
+             'status' => $request->status
+        ]);
+
+        $color = '';
+
+        if($request->status == 'publish'){
+            $color = '#28a745';
+        }else{
+             $color = '#f00';
+        }
+        return response()->json([
+         'status' => 200,
+         'data' => $request->id,
+         'color' => $color
+        ]);
+     }
 
     /**
      * Show the form for editing the specified resource.

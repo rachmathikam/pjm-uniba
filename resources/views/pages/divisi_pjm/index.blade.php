@@ -20,7 +20,33 @@
             opacity: 0.65;
             cursor: not-allowed;
         }
+
+        select option{
+        /* background-color: white; */
+        color: black;
+        }
+        .center{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, 10%);
+        }
+
+        .di_terima{
+        background-color:#28a745;
+        }
+        .pending{
+            background-color:#FFC107;
+        }
+
+        .status{
+            width: 100px;
+            border: none;
+            height: 50px;
+            border-radius: 5px;
+        }
     </style>
+
     <div class="content">
         <div class="page-inner">
             <div class="page-header">
@@ -35,9 +61,19 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Personalia PJM</a>
+                        <a href="#">Divisi PJM</a>
                     </li>
                 </ul>
+            </div>
+
+            <div class="filter form-group">
+                <label for="">Filter Divisi</label>
+                <select name="filter_divisi" id="filter_divisi" class="form-control col-2">
+                        <option selected disabled>Filter By Divisi</option>
+                        @foreach ($kategori as $item)
+                        <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+                        @endforeach
+                </select>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -52,8 +88,8 @@
                                 + Tambah Pengurus Devisi Eksplorasi Data PJM
                             </button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                data-target="#pengurus_personalia">
-                                + Data Pengurus Devisi Eksplorasi Data PJM
+                                data-target="#pengurus_personalia"  data-target=".bd-example-modal-lg">
+                                 Data Pengurus Devisi Eksplorasi Data PJM
                             </button>
                             <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Hapus
                                 Terpilih</button>
@@ -70,21 +106,21 @@
                                                 <th style="width: 10%"><input type="checkbox" id="select_all_ids"
                                                         class="ml-3 mt-2 checkbox-item"></th>
                                             @endif
-                                            <th>Master Kategori</th>
-                                            <th>Personalia PJM</th>
+                                            <th>Kategori</th>
+                                            <th>Tugas Divisi PJM Berdasarkan Kategori</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="add_new">
-                                        @foreach ($divisi_pjm as $data)
-                                            <tr id="data{{ $data->id }}">
+                                        @foreach ($lol as $data)
+                                            <tr id="data{{ $data['id'] }}">
                                                 <td><input type="checkbox" name="ids"
-                                                        class="checkbox_ids ml-3 checkbox-item" value="{{ $data->id }}">
+                                                        class="checkbox_ids ml-3 checkbox-item" value="{{ $data['id'] }}">
                                                 </td>
                                                 <td>
-                                                    <span class="editSpan kategori_sub_kategori_id">{{ $data->kategori }} -
-                                                        {{ $data->sub_kategori }}</span>
+                                                    <span class="editSpan kategori_sub_kategori_id">{{$data['kategori'] }} -
+                                                        {{$data['sub_kategori'] }}</span>
                                                     <select name="kategori_sub_kategori_id"
                                                         class="form-control editInput kategori_sub_kategori_id mb-2">
                                                         @foreach ($kategori as $item)
@@ -94,24 +130,31 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <span class="editSpan deskripsi"> {{ $data->deskripsi }}</span>
-                                                    <input type="text" class="editInput deskripsi form-control"
-                                                        id="divisi_pjm_edit" name="divisi_pjm_edit"
-                                                        value="{{ $data->deskripsi }}">
+                                                    <span class="editSpan deskripsi"> {{ $data['deskripsi'] }}</span>
+                                                    <input type="text" class="editInput deskripsi form-control" onclick="test({{ $data['id'] }})"
+                                                        id="divisi_pjm_edit{{ $data['id'] }}" name="divisi_pjm_edit"
+                                                        value="{{ $data['deskripsi'] }}">
                                                     <div class="invalid-feedback" id="divisi_pjm_edit-error">
 
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="status"> {{ $data->status }}</span>
-
+                                                    <select name="status" id="status{{ $data['id'] }}" class="status text-center" onchange="status({{ $data['id'] }})" style="background-color: {{ $data['color'] }}; color:white;">
+                                                        @if($data['status'] == 'publish')
+                                                            <option selected value="publish">Publish</option>
+                                                            <option value="non_publish">No Publish</option>
+                                                        @else
+                                                        <option  value="publish">Publish</option>
+                                                        <option selected value="non_publish">No Publish</option>
+                                                        @endif
+                                                    </select>
                                                 </td>
                                                 <td style="width: 15%">
                                                     <button class="btn text-warning btn-sm edit_inline"><i
                                                             class="fa fa-edit"></i></button>
                                                     <button class="btn text-black btnSave btn-sm" style="display: none"><i
                                                             class="fa fa-check"></i></button>
-                                                    <button class="btn text-danger editCancel btn-sm"
+                                                    <button class="btn text-danger editCancel btn-sm" onclick="editCancel({{ $data['id'] }})"
                                                         style="display: none"><i class="fa fa-times"></i></button>
                                                 </td>
                                             </tr>
@@ -169,13 +212,13 @@
         </div>
     </div>
 
-    <!--Tambah Modal Pengurus  Personalia -->
+    <!--Tambah Modal Pengurus  Divisi PJM  -->
     <div class="modal fade" id="tambah_pengurus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5>Tambah Pengurus Personalia</h5>
+                    <h5>Tambah Pengurus Divisi PJM Uniba</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -237,25 +280,34 @@
     </div>
     <!-- End Modal -->
 
-    <!-- Modal Data Pengurus  Personalia -->
-    <div class="modal fade pengurus_personalia" id="pengurus_personalia" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Data Pengurus divisi -->
+    <div class="modal fade bd-example-modal-xl" id="pengurus_personalia" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+            <div class="modal-content center" style="width: 1280px;">
                 <div class="modal-header">
-                    <h5>Data Pengurus Personalia</h5>
+                    <h5>Data Pengurus Divisi PJM Uniba</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="filter form-group">
+                    <label for="">Filter Pengurus Divisi</label>
+                    <select name="filter_pengurus" id="filter_pengurus" class="form-control col-2">
+                            <option selected disabled>Filter Pengurus By Divisi</option>
+                            @foreach ($kategori as $item)
+                            <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+                            @endforeach
+                    </select>
+                </div>
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="multi-filter-select" class="display table  table-hover">
+                            <table id="multi-filter-select1" class="display table  table-hover">
                                 <thead>
                                     <tr>
                                         <th>Kategori</th>
-                                        <th>Pengurus Personalia PJM</th>
+                                        <th>Pengurus Divisi PJM</th>
                                         <th>Jabatan</th>
                                         <th>Foto</th>
                                         <th>Action</th>
@@ -263,7 +315,7 @@
                                 </thead>
                                 <tbody id="add_new_pengurus">
                                     @foreach ($pengurus_divisi as $data)
-                                        <tr id="data{{ $data->id }}">
+                                        <tr id="data_pengurus{{ $data->id }}">
                                             <td>
                                                 <span class="editSpan kategori_sub_kategori_id">{{ $data->kategori }} -
                                                     {{ $data->sub_kategori }}</span>
@@ -277,7 +329,7 @@
                                             </td>
                                             <td>
                                                 <span class="editSpan nama"> {{ $data->nama }}</span>
-                                                <input type="text" class="editInput nama" name="personalia"
+                                                <input type="text" class="editInput nama"  name="personalia"
                                                     value="{{ $data->nama }}">
                                             </td>
                                             <td>
@@ -308,14 +360,93 @@
 
 
     <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
-    <script src="../../assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
     <script src="../../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" id="theme-styles" />
     <script>
+
         $('#multi-filter-select').DataTable({
             "pageLength": 5,
             "ordering": false,
+        });
+        $('#multi-filter-select1').DataTable({
+            "pageLength": 10,
+            "ordering": false,
+        });
+
+        $("#filter_pengurus").on('change', function() {
+            data = $(this).val();
+            $.ajax({
+                url: "{{ route('pengurus_divisi_pjm.filter') }}",
+                data: {data: data},
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    var html = '';
+                    $('#add_new_pengurus').children().remove();
+                    if (response.status == 200) {
+                        $.each(response.data, function(key, value) {
+                            html += `<tr id="data${value.id}">
+                                        <td>
+                                            <span>${value.kategori} - ${value.sub_kategori}</span>
+
+                                            </td>
+                                        <td>
+                                            <span>${value.nama}</span>
+
+                                        </td>
+                                        <td>
+                                            <span class="jabatan">${value.jabatan}</span>
+
+                                        </td>
+                                        <td><img src="{{ asset('assets/image/pengurus_divisi') }}/${value.foto}"
+                                            width="100"></td>
+                                        <td style="width: 20%">
+                                            <button class="btn text-warning btn-sm edit_inline"><i
+                                                    class="fa fa-edit"></i></button>
+                                            <button class="btn text-danger btn-sm" onclick="PengurusDelete(${value.id})"><i
+                                                class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>`;
+                        });
+
+                        $("#add_new_pengurus").append(html);
+                    }else{
+                        html = response.data;
+                        $("#add_new_pengurus").append(html);
+                    }
+                }
+            });
+        });
+
+        $("#filter_divisi").on('change', function() {
+            data = $(this).val();
+            $.ajax({
+                url: "{{ route('divisi_pjm.filter') }}",
+                data: {data: data},
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $('#add_new').children().remove();
+                    var html = '';
+                    if (response.status == 200) {
+
+                            html += response.data;
+
+
+                        $("#add_new").append(html);
+
+                    }else{
+                        html = response.data;
+                        $("#add_new").append(html);
+                    }
+                }
+            });
         });
 
         $("#add_form_pengurus").on('submit', function(e) {
@@ -419,6 +550,7 @@
                 cache: false,
                 processData: false,
                 success: function(response) {
+                    $('#add_new').children().remove();
                     if (response.status == 200) {
                         var content = {};
                         content.message = 'Data berhasil di tambah';
@@ -433,45 +565,10 @@
                             time: 1500,
                             delay: 1000,
                         });
-                        $("#add_new").children().remove();
-                        $('.modal').modal('hide');
-                        var html = '';
-                        $.each(response.data, function(key, value) {
-                            html += `<tr id="data${value.id}">
-                                                <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
-                                                    value="${value.id}">
-                                                </td>
-                                                <td>
-                                                    <span class="editSpan kategori_sub_kategori_id">${value.kategori} - ${value.sub_kategori} </span>
-                                                    <select name="kategori_sub_kategori_id"  class="form-control editInput kategori_sub_kategori_id mb-2">
-                                                        @foreach ($kategori as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->kategori }} - {{ $item->sub_kategori }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    </td>
-                                                <td>
-                                                    <span class="editSpan deskripsi"> ${value.deskripsi} </span>
-                                                    <input type="text" class="editInput deskripsi" name="divisi_pjm_edit"
-                                                        value="${value.deskripsi} ">
-                                                </td>
-                                                <td>
-                                                    <span class="status"> ${value.status}</span>
 
-                                                </td>
-                                                <td>
-                                                    <button class="btn text-warning btn-sm edit_inline"><i
-                                                            class="fa fa-edit"></i></button>
-                                                    <button class="btn text-black btnSave btn-sm" style="display: none"><i
-                                                            class="fa fa-check"></i></button>
-                                                    <button class="btn text-danger editCancel btn-sm" style="display: none"><i
-                                                            class="fa fa-times"></i></button>
-                                                </td>
-                                            </tr>`;
-                        });
+                        html = response.data;
 
-                        $("#add_new").append(html);
-                        $("#add_form")[0].reset();
-
+                       $("#add_new").append(html);
 
                     } else {
                         var content = {};
@@ -524,7 +621,7 @@
             e.preventDefault();
             var trObj = $(this).closest("tr");
             var ID = $(this).closest("tr").attr('id');
-
+            data_id = ID.split("data");
             var inputData = $(this).closest("tr").find(".editInput").serialize();
             $.ajax({
                 type: "POST",
@@ -576,8 +673,9 @@
                             timer: 1000,
                         });
                         $.each(response.data, function(field, errors) {
-                            $('#' + field).addClass('is-invalid');
-                            $('#' + field + '-error').text(errors[0]).wrapInner("<strong />");
+                            data = trObj.find(".editInput.deskripsi");
+                            data.addClass('is-invalid');
+                            $('#' + field + '-error' + data_id).text(errors[0]).wrapInner("<strong />");
 
                         });
                     }
@@ -743,17 +841,8 @@
                                     time: 1500,
                                     delay: 1500,
                                 });
-                                var datas = $('#data' + id);
+                                var datas = $('#data_pengurus' + id);
                                 datas.remove();
-                                var select = $("#kategori_sub_kategori_id_pengurus");
-                                select.find('option:not(:first-child)').remove();
-                                $.each(response.select, function(key, value) {
-                                    $("#kategori_sub_kategori_id_pengurus").append($(
-                                        '<option>', {
-                                            value: value.id,
-                                            text: value.sub_kategori
-                                        }));
-                                });
                             }
                         });
                     }
@@ -768,5 +857,47 @@
                 }
             });
         }
+
+        function status(isi){
+        var inputData = $('#status'+isi).val();
+            console.log(inputData);
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url : "{{ route('divisi_pjm.status') }}",
+            dataType: "json",
+            data:'statusAksi=edit&id='+isi+'&'+'status='+inputData,
+            success:function(response){
+            if(response.status == 200){
+                var content = {};
+                        content.message = 'Data berhasil di update';
+                        content.icon = 'fa fa-check';
+                        content.title = 'Pesan Success';
+                        $.notify(content, {
+                            type: 'primary',
+                            placement: {
+                                from: "top",
+                                align: "right",
+                            },
+                            time: 1500,
+                            delay: 1000,
+                        });
+                    $("#status"+isi).css({ 'background-color' : '', 'opacity' : '' });
+                    $("#status"+isi).css({ 'background-color' : response.color });
+               }
+            }
+        });
+
+    }
+
+    function test(id) {
+            $('#divisi_pjm_edit' + id).removeClass('is-valid is-invalid');
+    }
+
+    function editCancel(id) {
+            $('#divisi_pjm_edit' + id).removeClass('is-valid is-invalid');
+    }
     </script>
 @endsection
