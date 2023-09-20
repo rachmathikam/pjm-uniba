@@ -114,17 +114,17 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('kategori.index') }}">
-                        <i class="fas fa-database"></i>
-                        <p>Master Kategori</p>
-                    </a>
-                </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
                     <h4 class="text-section">Profile PJM</h4>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('kategori.index') }}">
+                        <i class="fas fa-database"></i>
+                        <p>Kategori Profile</p>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#form" class="collapsed" aria-expanded="false">
@@ -175,6 +175,24 @@
                     <a href="{{ route('divisi_pjm.index') }}">
                         <i class="fas fa-university"></i>
                         <p>Divisi PJM</p>
+                    </a>
+                </li>
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">Dokumen PJM</h4>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('kategori_dokumen.index') }}">
+                        <i class="fas fa-database"></i>
+                        <p>Kategori Dokumen</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('dokumen.index') }}">
+                        <i class="fas fa-folder"></i>
+                        <p>Dokumen</p>
                     </a>
                 </li>
                 <li class="nav-section">

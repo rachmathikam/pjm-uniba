@@ -100,16 +100,85 @@ class TupoksiController extends Controller
                 'deskripsi' => $request->tupoksi,
             ]);
 
+            $datas = 'Tupoksi';
+            $kategori = KategoriSubKategori::leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
+                                            ->leftJoin('sub_kategori','sub_kategori.id', 'kategori_sub_kategori.sub_kategori_id')
+                                            ->where('kategori','LIKE','%'.$datas.'%')
+                                            ->select('kategori_sub_kategori.id','kategori.kategori','sub_kategori.sub_kategori')->get();
+
             $data = Tupoksi::leftJoin('kategori_sub_kategori','kategori_sub_kategori.id','tupoksis.kategori_sub_kategori_id')
                             ->leftJoin('kategori','kategori.id','kategori_sub_kategori.kategori_id')
                             ->leftJoin('sub_kategori','sub_kategori.id','kategori_sub_kategori.sub_kategori_id')
                             ->select('tupoksis.*','sub_kategori.sub_kategori','kategori.kategori')
                             ->get();
 
-           return response()->json([
+                            $lol = [];
+                            foreach ($data as  $value) {
+                                    $color = '';
+                                    if($value->status == 'publish') {
+                                        $color = '#28a745'; // hijau
+                                    }else{
+                                            $color = '#f00'; // kuning
+                                    }
+                                    $array =[
+
+                                    ];
+                                      $string = '<tr id="data'.$value->id.'">
+                                      <td><input type="checkbox" name="ids"
+                                              class="checkbox_ids ml-3 checkbox-item" value="'.$value->id.'">
+                                      </td>
+                                      <td>
+                                          <span class="editSpan kategori_sub_kategori_id">'.$value->kategori.' -
+                                          '.$value->sub_kategori.'</span>
+                                          <select name="kategori_sub_kategori_id"
+                                              class="form-control editInput kategori_sub_kategori_id mb-2">';
+                                                foreach ($kategori as  $item) {
+                                                    $string .=' <option value="'.$item->id.'">'.$item->kategori.' -
+                                                    '.$item->sub_kategori.'</option>';
+                                                }
+
+                                        $string .= '</select>
+                                      </td>
+                                      <td>
+                                          <span class="editSpan deskripsi">'.$value->deskripsi.'</span>
+                                          <input type="text" class="editInput deskripsi form-control"
+                                              id="divisi_pjm_edit" name="divisi_pjm_edit"
+                                              value="'.$value->deskripsi.'">
+                                          <div class="invalid-feedback" id="divisi_pjm_edit-error">
+
+                                          </div>
+                                      </td>
+                                      <td>
+                                      <select name="status" id="status'.$value->id.'" class="status text-center" onchange="status('.$value->id.')" style="background-color: '.$color.'; color:white;">';
+
+                                      if($value->status == 'publish') {
+                                        $string .= ' <option selected value="publish">Publish</option>
+                                                    <option value="non_publish">No Publish</option>';
+                                    } else {
+                                        $string .= ' <option  value="publish">Publish</option>
+                                                    <option selected value="non_publish">No Publish</option>';
+                                    }
+
+                                    $string .= '</select>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <button class="btn text-warning btn-sm edit_inline"><i
+                                                class="fa fa-edit"></i></button>
+                                        <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                class="fa fa-check"></i></button>
+                                        <button class="btn text-danger editCancel btn-sm"
+                                            style="display: none"><i class="fa fa-times"></i></button>
+                                    </td>
+                                </tr>';
+
+
+                                        array_push($lol,$string);
+                            }
+
+        return response()->json([
               'status' => 200,
               'message' => 'data berhasil di tambahkan',
-              'data' => $data,
+              'data' => $lol,
            ]);
         }
     }

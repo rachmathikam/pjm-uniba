@@ -8,9 +8,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TupoksiController;
 use App\Http\Controllers\PersonaliaController;
 use App\Http\Controllers\KategoriSubKategoriController;
+use App\Http\Controllers\KategoriSubKategoriDokumenController;
 use App\Http\Controllers\PengurusPersonaliaController;
 use App\Http\Controllers\DivisiPjmController;
 use App\Http\Controllers\PengurusDivisiPjmController;
+use App\Http\Controllers\DokumenController;
 
 
 
@@ -38,7 +40,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-// Master Kategori
+//Kategori Profile
 Route::resource('kategori',KategoriSubKategoriController::class);
 Route::post('/kategori-kategori', [App\Http\Controllers\KategoriSubKategoriController::class, 'kategori'])->name('kategori.kategori');
 Route::post('/kategori-sub', [App\Http\Controllers\KategoriSubKategoriController::class, 'sub'])->name('kategori.sub');
@@ -103,3 +105,14 @@ Route::post('/pengurus_divisi_pjm-delete', [App\Http\Controllers\PengurusDivisiP
 Route::post('/pengurus_divisi_pjm-updated', [App\Http\Controllers\PengurusDivisiPjmController::class, 'updated'])->name('pengurus_divisi_pjm.updated');
 Route::post('/pengurus_divisi_pjm-filter', [App\Http\Controllers\PengurusDivisiPjmController::class, 'filterPengurus'])->name('pengurus_divisi_pjm.filter');
 
+// Kategori Dokumen
+Route::resource('kategori_dokumen',KategoriSubKategoriDokumenController::class);
+Route::post('/kategori_dokumen-delete', [App\Http\Controllers\KategoriSubKategoriDokumenController::class, 'delete'])->name('kategori_dokumen.delete');
+Route::post('/kategori_dokumen-updated', [App\Http\Controllers\KategoriSubKategoriDokumenController::class, 'updated'])->name('kategori_dokumen.updated');
+
+//pengurus divisi
+Route::resource('dokumen',DokumenController::class);
+Route::post('/dokumen-updated', [App\Http\Controllers\DokumenController::class, 'updated'])->name('dokumen.updated');
+Route::post('/dokumen-delete', [App\Http\Controllers\DokumenController::class, 'delete'])->name('dokumen.delete');
+Route::post('/dokumen-updated', [App\Http\Controllers\DokumenController::class, 'updated'])->name('dokumen.updated');
+Route::post('/dokumen-filter', [App\Http\Controllers\DokumenController::class, 'filterPengurus'])->name('dokumen.filter');
