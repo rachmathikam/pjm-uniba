@@ -23,26 +23,78 @@ class KategoriSubKategoriDokumenController extends Controller
             'title' => 'Kategori Dokumen'
         ];
 
+
+        $kategoriSubKategori = KategoriSubKategoriDokumen::join('kategori_dokumens','kategori_dokumens.id','kategori_sub_kategori_dokumens.kategori_dokumen_id')
+                                                  ->join('sub_kategori_dokumens','sub_kategori_dokumens.id','kategori_sub_kategori_dokumens.sub_kategori_dokumen_id')
+                                                  ->select('kategori_sub_kategori_dokumens.id','kategori_dokumens.kategori','sub_kategori_dokumens.sub_kategori')
+                                                  ->get();
         $kategori = KategoriDokumen::all();
+        // $kategoris = DB::table('kategori')
+        //         ->select('kategori.id','kategori.kategori')
+        //         ->whereNotIn('kategori.id',DB::table('kategori_sub_kategori')
+        //         ->select('kategori_id'))->get();
+
+        $subKategori = SubKategoriDokumen::all();
+        $subKategoris = DB::table('sub_kategori_dokumens')
+                        ->select('sub_kategori_dokumens.id','sub_kategori_dokumens.sub_kategori')
+                        ->whereNotIn('sub_kategori_dokumens.id',DB::table('kategori_sub_kategori_dokumens')
+                        ->select('sub_kategori_dokumen_id'))->get();
 
 
-         return view('pages.kategori_dokumen.index',compact('data','kategori'));
+        return view('pages.kategori_dokumen.index',compact('data','kategoriSubKategori','kategori','subKategori','subKategoris'));
+
 
     }
 
 
-    public function create()
+    public function sub(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(),[
+            'sub_kategori' => 'required|unique:sub_kategori',
+
+
+        ],[
+            'sub_kategori.required' => 'Sub Kategori harus di isi!',
+
+            'sub_kategori.unique' => 'Sub Kategori sudah ada sebelumnnya !',
+        ]);
+
+
+
+        if($validate->fails()){
+            return response()->json([
+                'status' => 400,
+                'errors' => 'data gagal di tambahkan',
+                'data' =>  $validate->errors(),
+            ]);
+        }else{
+            DB::beginTransaction();
+                try {
+                    if(!empty($request->sub_kategori)){
+                        $subkategori = SubKategoriDokumen::create([
+                            'sub_kategori' => $request->sub_kategori,
+                        ]);
+                    }
+
+                DB::commit();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Data berhasil di tambahkan',
+                ]);
+
+            } catch (\Exception $e) {
+                DB::rollback();
+                return response()->json([
+                    'status' => 401,
+                    'errors' => 'data gagal di tambahkan',
+                ]);
+
+            }
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function kategori(Request $request)
     {
         $validate = Validator::make($request->all(),[
             'kategori' => 'required|unique:kategori_dokumens',
@@ -72,6 +124,53 @@ class KategoriSubKategoriDokumenController extends Controller
                     'status' => 200,
                     'message' => 'Data berhasil di tambahkan',
                     'data' => $data
+                ]);
+
+            } catch (\Exception $e) {
+                DB::rollback();
+                return response()->json([
+                    'status' => 401,
+                    'errors' => 'data gagal di tambahkan',
+                ]);
+
+            }
+        }
+    }
+
+    public function master(Request $request)
+    {
+        $validate = Validator::make($request->all(),[
+            'kategori_id' => 'required',
+            'sub_kategori_dokumen_id' => 'required|unique:kategori_sub_kategori_dokumens',
+
+
+        ],[
+            'kategori_id.required' => 'Kategori Atau Sub Kategori harus di isi!',
+            'sub_kategori_dokumen_id.required' => 'Kategori Atau Sub Kategori harus di isi!',
+            'sub_kategori_dokumen_id.unique' => 'Sub Kategori sudah ada sebelumnnya !',
+        ]);
+
+
+
+        if($validate->fails()){
+            return response()->json([
+                'status' => 400,
+                'errors' => 'data gagal di tambahkan',
+                'data' =>  $validate->errors(),
+            ]);
+        }else{
+            DB::beginTransaction();
+                try {
+
+                        $kategori = KategoriSubKategoriDokumen::create([
+                            'kategori_dokumen_id' => $request->kategori_id,
+                            'sub_kategori_dokumen_id' => $request->sub_kategori_dokumen_id,
+                        ]);
+
+                DB::commit();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Data berhasil di tambahkan',
                 ]);
 
             } catch (\Exception $e) {

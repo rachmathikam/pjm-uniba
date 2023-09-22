@@ -30,7 +30,7 @@
                         <i class="flaticon-right-arrow"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Profile</a>
+                        <a href="#">Kategori Dokumen</a>
                     </li>
                 </ul>
             </div>
@@ -38,9 +38,21 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#kategori">
                                + Tambah Kategori Dokumen
                               </button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#subkategori">
+                            + Tambah Sub Kategori Dokumen
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#masterKategori">
+                                + Tambah Master Kategori Dokumen
+                                </button>
+                            <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#table_kategori">
+                                 Table Kategori Dokumen
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#table_sub_kategori">
+                                    Table Sub Kategori Dokumen
+                                   </button>
                               <button class="btn btn-sm btn-danger deleteData" disabled><i class="fas fa-trash"></i> Hapus Terpilih</button>
                         </div>
                         <div class="card-body">
@@ -48,19 +60,20 @@
                                 <table id="multi-filter-select" class="display table  table-hover">
                                     <thead>
                                         <tr>
-                                            @if ($kategori->isEmpty())
+                                            @if ($kategoriSubKategori->isEmpty())
                                             <th style="width: 10%"><input type="checkbox" id="select_all_ids"
                                                     class="ml-3 mt-2 checkbox-item" disabled></th>
                                             @else
                                                 <th style="width: 10%"><input type="checkbox" id="select_all_ids"
                                                         class="ml-3 mt-2 checkbox-item"></th>
                                             @endif
-                                            <th>Kategori Dokumen</th>
+                                            <th>Kategori</th>
+                                            <th>Sub Kategori</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="add_new">
-                                        @foreach ($kategori as $data)
+                                        @foreach ($kategoriSubKategori as $data)
                                             <tr id="data{{ $data->id }}">
                                                 <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
                                                     value="{{ $data->id }}">
@@ -69,6 +82,11 @@
                                                     <span class="editSpan kategori"> {{ $data->kategori }}</span>
                                                     <input type="text" class="editInput kategori" name="kategori"
                                                         value="{{ $data->kategori }}">
+                                                </td>
+                                                <td>
+                                              <span class="editSpan"> {{ $data->sub_kategori }}</span>
+                                                    <input type="text" class="editInput subkategori" name="sub_kategori"
+                                                        value="{{ $data->sub_kategori }}">
                                                 </td>
                                                 <td>
                                                     <button class="btn text-warning btn-sm edit_inline"><i
@@ -91,38 +109,248 @@
     </div>
 
  <!-- Modal kategori  -->
- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
- aria-hidden="true">
- <div class="modal-dialog" role="document">
-     <div class="modal-content">
-         <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-             </button>
-         </div>
-         <div class="modal-body">
-             <form id="add_form">
-                 @csrf
-                 <div class="form-group">
-                     <label for="kategori">Kategori</label>
-                     <input name="kategori" id="kategori" class="form-control">
-                     <div class="invalid-feedback" id="kategori-error">
+ <div class="modal fade" id="kategori" tabindex="-1" role="dialog" aria-labelledby="Kategori" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Kategori">Tambah Kategori</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="add_form_kategori">
+                @csrf
+                <div class="form-group">
+                    <label for="kategori">Kategori</label>
+                    <input type="text" name="kategori" class="form-control" id="kategori">
+                    <div class="invalid-feedback " id='kategori-error'>
 
-                     </div>
-                 </div>
-         </div>
-         <div class="modal-footer">
-             <button type="submit" class="btn btn-primary">Save changes</button>
-             <button type="button" class="btn btn-secondary btnClose" data-dismiss="modal">Close</button>
-         </div>
-         </form>
-     </div>
- </div>
-</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+
+    <!-- Modal subkategori-->
+    <div class="modal fade" id="subkategori" tabindex="-1" role="dialog" aria-labelledby="subkategori" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="subkategori">Tambah Sub Kategori</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="add_form_sub" class="row">
+                    @csrf
+                    <div class="form-group col-md-12">
+                        <label for="sub_kategori">Sub kategori</label>
+                        <input type="text" name="sub_kategori" class="form-control" id="sub_kategori">
+                        <div class="invalid-feedback " id='kategori-error'>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal subkategori-->
+
+      <!-- Modal masterKategori -->
+    <div class="modal fade" id="masterKategori" tabindex="-1" role="dialog" aria-labelledby="masterKategori" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="masterKategori">Tambah Master Kategori</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="add_form_master" class="row">
+                    @csrf
+                    <div class="form-group col-md-6">
+                        <label for="kategori">Kategori</label>
+                        <select name="kategori_id" id="kategori_id" class="form-control">
+                            <option selected disabled>-- Pilih Kategori -- </option>
+                            @foreach ($kategori as $item)
+                            <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback " id='kategori_id-error'>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="subkategori">Sub Kategori</label>
+                        <select name="sub_kategori_dokumen_id" id="sub_kategori_dokumen_id" class="form-control">
+                            <option selected disabled>-- Pilih Sub Kategori -- </option>
+                            @foreach ($subKategoris as $item)
+                            <option value="{{ $item->id }}">{{ $item->sub_kategori }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback " id='sub_kategori_dokumen_id-error'>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal masterKategori -->
+
+
+       <!-- Modal table kategori -->
+    <div class="modal fade" id="table_kategori" tabindex="-1" role="dialog" aria-labelledby="table_kategori" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="table_kategori">Data Kategori</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="display table  table-hover">
+                            <thead>
+                                <tr>
+                                    @if ($kategori->isEmpty())
+                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                            class="ml-3 mt-2 checkbox-item" disabled></th>
+                                    @else
+                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                                class="ml-3 mt-2 checkbox-item"></th>
+                                    @endif
+                                    <th>Kategori</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="add_new">
+                                @foreach ($kategori as $data)
+                                    <tr id="data{{ $data->id }}">
+                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                            value="{{ $data->id }}">
+                                        </td>
+                                        <td>
+                                            <span class="editSpan kategori"> {{ $data->kategori }}</span>
+                                            <input type="text" class="editInput kategori" name="kategori"
+                                                value="{{ $data->kategori }}">
+                                        </td>
+                                        <td>
+                                            <button class="btn text-warning btn-sm edit_inline"><i
+                                                    class="fa fa-edit"></i></button>
+                                            <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                    class="fa fa-check"></i></button>
+                                            <button class="btn text-danger editCancel btn-sm" style="display: none"><i
+                                                    class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal table kategori -->
+
+
+      <!-- Modal table Sub Kategori -->
+    <div class="modal fade" id="table_sub_kategori" tabindex="-1" role="dialog" aria-labelledby="table_sub_kategori" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="table_sub_kategori">Data Sub Kategori</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="display table  table-hover">
+                            <thead>
+                                <tr>
+                                    @if ($subKategori->isEmpty())
+                                    <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                            class="ml-3 mt-2 checkbox-item" disabled></th>
+                                    @else
+                                        <th style="width: 10%"><input type="checkbox" id="select_all_ids"
+                                                class="ml-3 mt-2 checkbox-item"></th>
+                                    @endif
+                                    <th>Sub Kategori</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="add_new">
+                                @foreach ($subKategori as $data)
+                                    <tr id="data{{ $data->id }}">
+                                        <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
+                                            value="{{ $data->id }}">
+                                        </td>
+                                        <td>
+                                            <span class="editSpan sub_kategori"> {{ $data->sub_kategori }}</span>
+                                            <input type="text" class="editInput sub_kategori" name="sub_kategori"
+                                                value="{{ $data->sub_kategori }}">
+                                        </td>
+                                        <td>
+                                            <button class="btn text-warning btn-sm edit_inline"><i
+                                                    class="fa fa-edit"></i></button>
+                                            <button class="btn text-black btnSave btn-sm" style="display: none"><i
+                                                    class="fa fa-check"></i></button>
+                                            <button class="btn text-danger editCancel btn-sm" style="display: none"><i
+                                                    class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal table kategori -->
 
 
 
-      <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
+
+
+
+    <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="../../assets/js/plugin/datatables/datatables.min.js"></script>
     <script src="../../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
@@ -133,22 +361,11 @@
             "ordering": false,
         });
 
-        $('.btnClose').on('click', function() {
-            $('#kategori').removeClass('is-valid is-invalid');
-        });
-
-        $('#kategori').on('click', function() {
-            $('#kategori').removeClass('is-valid is-invalid');
-        });
-
-
-        $('.btnClose')
-
-        $("#add_form").on('submit', function(e) {
+        $("#add_form_kategori").on('submit', function(e) {
                 e.preventDefault();
                 var data = new FormData(this);
                 $.ajax({
-                    url : "{{ route('kategori_dokumen.store') }}",
+                    url : "{{ route('kategori_dokumen.kategori') }}",
                     data: data,
                     type: "POST",
                     contentType: false,
@@ -169,31 +386,6 @@
                                 time: 1500,
                                 delay: 1000,
 			                });
-                            $('.modal').modal('hide');
-                            var html = '';
-                            $("#add_new").children().remove();
-                            $.each(response.data, function(field, value) {
-                                html += `<tr id="data${value.id}">
-                                                <td><input type="checkbox" name="ids" class="checkbox_ids ml-3 checkbox-item"
-                                                    value="${value.id}">
-                                                </td>
-                                                <td>
-                                                    <span class="editSpan kategori"> ${value.kategori}</span>
-                                                    <input type="text" class="editInput kategori" name="kategori"
-                                                        value="${value.kategori}">
-                                                </td>
-                                                <td>
-                                                    <button class="btn text-warning btn-sm edit_inline"><i
-                                                            class="fa fa-edit"></i></button>
-                                                    <button class="btn text-black btnSave btn-sm" style="display: none"><i
-                                                            class="fa fa-check"></i></button>
-                                                    <button class="btn text-danger editCancel btn-sm" style="display: none"><i
-                                                            class="fa fa-times"></i></button>
-                                                </td>
-                                            </tr>`;
-                            });
-                            $("#add_new").append(html);
-                            $('#select_all_ids').prop('disabled', false);
                         }else{
                             var content = {};
 			                content.title = 'Pesan Error';
@@ -209,6 +401,105 @@
 	                           timer: 1000,
 			                });
                              $.each(response.data, function(field, errors) {
+
+                            $('#' + field).addClass('is-invalid');
+                            $('#' + field + '-error').text(errors[0]).wrapInner("<strong />");
+                        });
+                        }
+                    },
+                });
+            });
+
+            $("#add_form_sub").on('submit', function(e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                $.ajax({
+                    url : "{{ route('kategori_dokumen.sub') }}",
+                    data: data,
+                    type: "POST",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == 200) {
+                          var content = {};
+                            content.message = 'Data berhasil di tambah';
+                            content.icon = 'fa fa-check';
+			                content.title = 'Pesan Success';
+                            $.notify(content,{
+                                type: 'primary',
+                                placement: {
+                                    from: "top",
+                                    align: "right",
+                                },
+                                time: 1500,
+                                delay: 1000,
+			                });
+                        }else{
+                            var content = {};
+			                content.title = 'Pesan Error';
+                            content.message = response.data.sub_kategori;
+                            content.icon = 'fa fa-times';
+                            $.notify(content,{
+                                type: 'danger',
+                                placement: {
+                                    from: "top",
+                                    align: "right",
+                                },
+                               delay: 1000,
+	                           timer: 1000,
+			                });
+                             $.each(response.data, function(field, errors) {
+                                console.log(response.data);
+                            $('#' + field).addClass('is-invalid');
+                            $('#' + field + '-error').text(errors[0]).wrapInner("<strong />");
+                        });
+                        }
+                    },
+                });
+            });
+
+            $("#add_form_master").on('submit', function(e) {
+                e.preventDefault();
+                var data = new FormData(this);
+                $.ajax({
+                    url : "{{ route('kategori_dokumen.master') }}",
+                    data: data,
+                    type: "POST",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(response) {
+                        if (response.status == 200) {
+                          var content = {};
+                            content.message = 'Data berhasil di tambah';
+                            content.icon = 'fa fa-check';
+			                content.title = 'Pesan Success';
+                            $.notify(content,{
+                                type: 'primary',
+                                placement: {
+                                    from: "top",
+                                    align: "right",
+                                },
+                                time: 1500,
+                                delay: 1000,
+			                });
+                        }else{
+                            var content = {};
+			                content.title = 'Pesan Error';
+                            content.message = 'Data gagal di tambah';
+                            content.icon = 'fa fa-times';
+                            $.notify(content,{
+                                type: 'danger',
+                                placement: {
+                                    from: "top",
+                                    align: "right",
+                                },
+                               delay: 1000,
+	                           timer: 1000,
+			                });
+                             $.each(response.data, function(field, errors) {
+                                console.log(response.data);
                             $('#' + field).addClass('is-invalid');
                             $('#' + field + '-error').text(errors[0]).wrapInner("<strong />");
                         });
@@ -272,8 +563,8 @@
                             time: 1500,
                             delay: 1500,
                         });
-                        trObj.find(".editSpan.kategori").text(response.data.kategori);
-                        trObj.find(".editInput.kategori").val(response.data.kategori);
+                        trObj.find(".editSpan.profile").text(response.data.profile);
+                        trObj.find(".editInput.profile").val(response.data.profile);
                         trObj.find(".editInput").hide();
                         trObj.find(".editSpan").show();
                         trObj.find(".btnSave").hide();
@@ -287,6 +578,9 @@
 
 
 
+            $("#select_all_ids").click(function() {
+                 $('.checkbox_ids').prop('checked', $(this).prop('checked'));
+           });
 
            $(document).on('change', '.checkbox-item', function() {
             var anyChecked = $('.checkbox-item:checked').length > 0;
@@ -301,10 +595,6 @@
                 $('#select_all_ids').prop('checked', false);
             }
 
-        });
-
-        $("#select_all_ids").click(function() {
-            $('.checkbox_ids').prop('checked', $(this).prop('checked'));
         });
 
 
@@ -338,7 +628,7 @@
                 if (result.value) {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('kategori_dokumen.delete') }}",
+                            url: "{{ route('tupoksi.delete') }}",
                             type: "POST",
                             data: {
                                 ids: all_ids,
@@ -361,16 +651,6 @@
                                     var datas = $('#data' + value);
                                     datas.remove();
                                 });
-
-                                if (response.select == 'disabled') {
-                                    $(".checkbox-item").prop("checked", false);
-                                    $('.deleteData').prop('disabled', true);
-                                    $(".checkbox-item").attr('disabled', true);
-
-                                } else if (response.select == 'ada') {
-                                    $('.deleteData').prop('disabled', true);
-                                    $("#select_all_ids").prop("checked", false);
-                                }
                             }
                         });
                     }

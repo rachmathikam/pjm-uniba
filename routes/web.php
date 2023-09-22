@@ -107,6 +107,9 @@ Route::post('/pengurus_divisi_pjm-filter', [App\Http\Controllers\PengurusDivisiP
 
 // Kategori Dokumen
 Route::resource('kategori_dokumen',KategoriSubKategoriDokumenController::class);
+Route::post('/kategori_dokumen-kategori', [App\Http\Controllers\KategoriSubKategoriDokumenController::class, 'kategori'])->name('kategori_dokumen.kategori');
+Route::post('/kategori_dokumen-sub', [App\Http\Controllers\KategoriSubKategoriDokumenController::class, 'sub'])->name('kategori_dokumen.sub');
+Route::post('/kategori_dokumen-master', [App\Http\Controllers\KategoriSubKategoriDokumenController::class, 'master'])->name('kategori_dokumen.master');
 Route::post('/kategori_dokumen-delete', [App\Http\Controllers\KategoriSubKategoriDokumenController::class, 'delete'])->name('kategori_dokumen.delete');
 Route::post('/kategori_dokumen-updated', [App\Http\Controllers\KategoriSubKategoriDokumenController::class, 'updated'])->name('kategori_dokumen.updated');
 

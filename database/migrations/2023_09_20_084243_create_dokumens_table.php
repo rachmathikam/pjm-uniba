@@ -15,6 +15,10 @@ class CreateDokumensTable extends Migration
     {
         Schema::create('dokumens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('kategori_sub_kategori_dokumen_id')->references('id')->on('kategori_sub_kategori_dokumens')->onDelete('cascade');
+            $table->string('slug',1000);
+            $table->string('judul');
+            $table->string('file');
             $table->timestamps();
         });
     }
